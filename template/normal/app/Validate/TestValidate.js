@@ -1,0 +1,18 @@
+rd2.validate("test").set({
+	name:[
+		{
+			rule:"required",
+			message:"名前が未入力です",
+		},
+	],
+	code:[
+		{
+			rule:"required",
+			message:"コードが未入力です",
+		},
+		{
+			rule:["maxLength",4],
+			message:"4文字以内で入力してください",
+		},
+	],
+});

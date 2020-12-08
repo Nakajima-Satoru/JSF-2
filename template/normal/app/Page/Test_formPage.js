@@ -1,0 +1,70 @@
+rd2.page("test_form").before(function(obj){
+
+	$("#page_title").text("Test Form");
+
+	rd2.form("test_form").set({
+		name:{
+			type:"text",
+		},
+		code:{
+			type:"text",
+			style:"max-width:200px",
+		},
+		email:{
+			type:"text",
+		},
+		message:{
+			type:"textarea",
+			style:"min-height:200px",
+		},
+		category:{
+			type:"select",
+			select:{
+				0:"Category-A",
+				1:"Category-B",
+				2:"Category-C",
+				3:"Category-D",
+				4:"Category-E",
+			},
+			empty:"---select category---",
+		},
+		radio:{
+			type:"radio",
+			select:{
+				0:"Radio-A",
+				1:"Radio-B",
+				2:"Radio-C",
+				3:"Radio-D",
+				4:"Radio-E",
+				5:"Radio-F",
+				6:"Radio-G",
+			},
+		},
+		checkbox:{
+			type:"checkbox",
+			select:{
+				0:"Checkbox-A",
+				1:"Checkbox-B",
+				2:"Checkbox-C",
+				3:"Checkbox-D",
+				4:"Checkbox-E",
+				5:"Checkbox-F",
+				6:"Checkbox-G",
+			},
+		},
+		file1:{
+			type:"file",
+		},
+		file2:{
+			type:"file",
+			multiple:true,
+		},
+		submit:{
+			type:"submit",
+			value:"SUBMIT",
+		}
+	}).setData({
+		name:"default name!",
+	});
+
+});

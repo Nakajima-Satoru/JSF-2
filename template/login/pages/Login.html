@@ -1,0 +1,54 @@
+<style>
+.login_area{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	top:0;
+	background:#fff;
+	color:#222;
+}
+.login_area input:not([type=submit]){
+	background:#dfdfff;
+	color:#232323;
+	border:none;
+	border:solid 1px #68a;
+}
+.login_area input:focus:not(.btn){
+	background:#efefff;
+}
+.login_area form{
+	width:80%;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translateX(-50%) translateY(-50%);
+	-webkit-transform:translateX(-50%) translateY(-50%);
+}
+.pw_reissus{
+	position:absolute;
+	bottom:20px;
+	left:50%;
+	transform:translateX(-50%);
+}
+</style>
+<div class="login_area">
+	<form id="login">
+		<h3 class="mb-3">Login Text</h3>
+		<dl>
+			<dt>USER Id</dt>
+			<dd>
+				<div field="username"></div>		
+				<div error="username"></div>
+			</dd>
+			<dt>PASSWORD</dt>
+			<dd>
+				<div field="password"></div>		
+				<div error="password"></div>
+			</dd>
+		</dl>
+		<div field="submit"></div>
+	</form>
+
+	<a url="loginpwreissus" class="pw_reissus">パスワードを忘れた場合</a>
+</div>

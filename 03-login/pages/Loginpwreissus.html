@@ -1,0 +1,50 @@
+<style>
+.pwreissus_area{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	top:0;
+	background:#fff;
+	color:#222;
+}
+.pwreissus_area input:not([type=submit]){
+	background:#dfdfff;
+	color:#232323;
+	border:none;
+	border:solid 1px #68a;
+}
+.pwreissus_area input:focus:not(.btn){
+	background:#efefff;
+}
+.pwreissus_area form{
+	width:80%;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translateX(-50%) translateY(-50%);
+	-webkit-transform:translateX(-50%) translateY(-50%);
+}
+.login{
+	position:absolute;
+	bottom:20px;
+	left:50%;
+	transform:translateX(-50%);
+}
+</style>
+
+<div class="pwreissus_area">
+	<form id="loginpwreissus">
+		<h4 class="mb-3">パスワードの再発行</h4>
+		<p>下記にアカウント登録メールアドレスを入力して、<br>「再発行手続き開始」ボタンを押してください。</p>
+		<dl>
+			<dt>Email</dt>
+			<dd>
+				<div field="email"></div>
+				<div error="email"></div>
+			</dd>
+		</dl>
+		<div field="submit"></div>
+	</form>
+	<a onclick="rd2.redirect.back();" class="login">ログイン画面へ戻る</a>
+</div>

@@ -1,0 +1,12 @@
+rd2.validate("loginpwreissus").set({
+	email:{
+		n1:{
+			rule:"required",
+			message:"Emailが未入力です",
+		},
+		n2:{
+			rule:"isEmail",
+			message:"不正なメールフォーマットです"
+		},
+	},
+});
