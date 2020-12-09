@@ -1,0 +1,29 @@
+<div class="login">
+	<p style="font-size:20px;font-weight:100">会員登録</p>
+	<form id="user_regist">
+		<dl>
+			<dt>メールアドレス</dt>
+			<dd>
+				<div field="email"></div>
+				<p>※　登録済みのメールアドレスは登録不可</p>
+			</dd>
+			<dt>ユーザーID</dt>
+			<dd>
+				<div field="username"></div>
+				<p>
+					※　8文字以上を入力
+					<br>※　登録済みのユーザーIDは登録不可
+				</p>
+			</dd>
+			<dt>パスワード</dt>
+			<dd>
+				<div field="password"></div>
+				<p>※　8文字以上を入力</p>
+			</dd>
+		</dl>
+		<div class="bottom_area">
+			<a onclick="rd2.redirect.back()" class="_left">戻る</a>
+			<a onclick='rd2.form("user_regist").submit()'' class="_right">次へ</a>
+		</div>
+	</form>
+</div>

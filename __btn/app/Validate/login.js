@@ -1,0 +1,14 @@
+rd2.validate("login").set({
+	username:[
+		{
+			rule:"required",
+			message:"ユーザーIDが入力されていません",
+		},
+	],
+	password:[
+		{
+			rule:"required",
+			message:"パスワードが入力されていません",
+		},
+	],
+});

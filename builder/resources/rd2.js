@@ -478,6 +478,11 @@ var rd2={
 				afterCall();
 			}
 
+			if(option.cacheClear){
+				console.log("cache clear...");
+				rd2.redirect.resetRedirectCache();
+			}
+
 			return this;
 		},
 		back:function(option){
