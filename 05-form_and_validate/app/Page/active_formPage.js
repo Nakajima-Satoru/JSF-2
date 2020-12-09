@@ -9,7 +9,7 @@ rd2.page("active_form").addGroup("app").before(function(obj){
 
 	obj.pageObj.find("#add").on("click",function(){
 
-		rd2.form("active_form").add("active_area","active_form_part",{
+		var param={
 			name:{
 				type:"text",
 			},
@@ -17,13 +17,17 @@ rd2.page("active_form").addGroup("app").before(function(obj){
 				type:"text",
 				style:"max-width:100px",
 			},
-		},function(obj){
+		};
+
+		var callback=function(obj){
 			
 			obj.fieldObj.find(".delete").on("click",function(){
 				obj.fieldObj.remove();
 			});
 
-		});
+		};
+
+		rd2.form("active_form").add("active_area","active_form_part",param,callback);
 	
 	});
 
