@@ -60,7 +60,7 @@ header .barger_btn{
 	height:100%;
 	z-index:101;
 	overflow:auto;
-	padding:20px;
+	padding:10px;
 	opacity:0;
 	-webkit-opacity:0;
 	transition-duration:300ms;
@@ -70,6 +70,10 @@ header .barger_btn{
 	left:0;
 	opacity:1;
 	-webkit-opacity:1;
+}
+.sidebar a{
+	display:block;
+	padding:10px;
 }
 
 pagelist{
@@ -89,13 +93,19 @@ input,
 textarea,
 select,
 select option{
-	background:#111;
-	color:#ddd;
+	background:#f0f0f0;
+	color:#444;
 	padding:0px 5px;
-	border:solid 1px #777;
+	border:none;
+	border-bottom:solid 1px #d81;
 	line-height:36px;
 	width:100%;
 	display:block;
+}
+input,
+textarea,
+select{
+	margin-bottom:5px;
 }
 select{
 	height:30px;
@@ -104,7 +114,7 @@ input:focus,
 select:focus,
 textarea:focus{
 	outline:none;
-	border:solid 1px #4ac;
+	background:#fec;
 }
 input:-internal-autofill-selected{
 	background:none;
@@ -163,8 +173,8 @@ dl dd{
 	position:absolute;
 	left:0;
 	top:0;
-	right:0;
-	bottom:0;
+	width:100%;
+	height:100%;
 	background:#d72;
 	color:#fff;
 	padding:20px;
@@ -178,14 +188,39 @@ dl dd{
 	width:80%;
 	max-width:400px;
 }
+.login.tables{
+	display:table;
+}
+.login.tables .cell{
+	display:table-row;
+}
+.login.tables .cell.bottoms{
+	height:30px;
+}
+.login.tables .cell.bottoms a{
+	display:inline-block;
+	line-height:30px;
+}
+
+.login.tables .cell.bottoms ._right{
+	position:absolute;
+	right:20px;
+}
 
 .login input:not([type=submit]){
 	background:#fff;
 	color:#444;
 	border:none;
 }
+.login dl dt{
+	margin-bottom:10px;
+}
 .login dl dd{
 	margin-bottom:20px;
+}
+.login .memo{
+	margin-bottom:5px;
+	font-size:12px;
 }
 .login .link_regist{
 	position:absolute;
@@ -193,17 +228,6 @@ dl dd{
 	bottom:20px;
 	width:100%;
 }
-.login .bottom_area{
-	position:absolute;
-	left:0;
-	bottom:0;
-	padding:20px;
-	width:100%;
-}
 .login a{
 	color:#fff;
-}
-.login .bottom_area ._right{
-	position:absolute;
-	right:20px;
 }

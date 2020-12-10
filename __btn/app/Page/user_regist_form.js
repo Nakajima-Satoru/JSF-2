@@ -7,7 +7,13 @@ rd2.page("user_regist_form").addGroup(["auth"]).before(function(obj){
 		username:{
 			type:"text",
 		},
-		password:{
+		nickname:{
+			type:"text",
+		},
+		password_1:{
+			type:"password",
+		},
+		password_2:{
 			type:"password",
 		},
 		submit:{

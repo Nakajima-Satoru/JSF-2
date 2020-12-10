@@ -1,29 +1,41 @@
-<div class="login">
-	<p style="font-size:20px;font-weight:100">会員登録</p>
-	<form id="user_regist">
-		<dl>
-			<dt>メールアドレス</dt>
-			<dd>
-				<div field="email"></div>
-				<p>※　登録済みのメールアドレスは登録不可</p>
-			</dd>
-			<dt>ユーザーID</dt>
-			<dd>
-				<div field="username"></div>
-				<p>
-					※　8文字以上を入力
-					<br>※　登録済みのユーザーIDは登録不可
-				</p>
-			</dd>
-			<dt>パスワード</dt>
-			<dd>
-				<div field="password"></div>
-				<p>※　8文字以上を入力</p>
-			</dd>
-		</dl>
-		<div class="bottom_area">
-			<a onclick="rd2.redirect.back()" class="_left">戻る</a>
-			<a onclick='rd2.form("user_regist").submit()'' class="_right">次へ</a>
+<div class="login tables">
+	<div class="cell">
+		<p style="font-size:20px;font-weight:100">会員登録</p>
+		<form id="user_regist">
+			<dl>
+				<dt>メールアドレス</dt>
+				<dd>
+					<div class="memo">※登録済みのメールアドレスは登録不可</div>
+					<div field="email"></div>
+					<div error="email"></div>
+				</dd>
+				<dt>ユーザーID</dt>
+				<dd>
+					<div class="memo">
+						※8文字以上を入力
+						<br>※登録済みのユーザーIDは登録不可
+					</div>
+					<div field="username"></div>
+					<div error="username"></div>
+				</dd>
+				<dt>ニックネーム</dt>
+				<dd>
+					<div field="nickname"></div>
+					<div error="nickname"></div>
+				</dd>
+				<dt>パスワード</dt>
+				<dd>
+					<div class="memo">※8文字以上を入力</div>
+					<div class="memo">※確認用の入力欄にも同じパスワードを入力してください</div>
+					<div field="password_1"></div>
+					<div field="password_2"></div>
+					<div error="password_1"></div>
+				</dd>
+			</dl>
+		</form>
+	</div>
+	<div class="cell bottoms">
+		<a onclick="rd2.redirect.back()" class="_left">戻る</a>
+		<a onclick='rd2.form("user_regist").submit()'' class="_right">次へ</a>
 		</div>
-	</form>
 </div>
