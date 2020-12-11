@@ -2311,7 +2311,7 @@ var rd2={
 			
 		};
 
-		return _this;
+		return new _this(keepName);
 
 	},
 };

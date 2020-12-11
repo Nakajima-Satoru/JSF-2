@@ -18,7 +18,8 @@ rd2.group("auth").before(function(obj){
 		if(
 			page=="login" ||
 			page=="user_regist" ||
-			page=="user_regist_form"
+			page=="user_regist_form" || 
+			page=="user_regist_form2"
 		){
 			return;
 		}
