@@ -1,0 +1,38 @@
+rd2.validate("user_regist").set({
+	email:[
+		{
+			rule:"required",
+			message:"メールアドレスが入力されていません",
+		},
+		{
+			rule:"isEmail",
+			message:"メールアドレスのフォーマットではありません",
+		},
+	],
+	username:[
+		{
+			rule:"required",
+			message:"ユーザーIDが入力されていません",
+		},
+		{
+			rule:["minLength",8],
+			message:"8文字以上を入力してください",
+		},
+	],
+	password_1:[
+		{
+			rule:"required",
+			message:"パスワードが入力されていません",
+		},
+		{
+			rule:["minLength",8],
+			message:"8文字以上を入力してください",
+		},
+		{
+			rule:["value","@password_2"],
+			message:"確認用にも同じパスワードを入力してください"
+		}
+	],
+	
+
+});
