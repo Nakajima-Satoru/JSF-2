@@ -19,7 +19,8 @@ rd2.group("auth").before(function(obj){
 			page=="login" ||
 			page=="user_regist" ||
 			page=="user_regist_form" || 
-			page=="user_regist_form2"
+			page=="user_regist_form2" ||
+			page=="user_regist_complete"			
 		){
 			return;
 		}

@@ -151,15 +151,30 @@ module.exports={
     
         var coreFileBasePath=__dirname+"/resources";
         var coreFileList=fs.readdirSync(coreFileBasePath);
-        
+
         for(var n=0;n<coreFileList.length;n++){
             var copyFileName=buildDirCore+"/"+coreFileList[n];
-    
             var baseFileName=coreFileBasePath+"/"+coreFileList[n];
-            fs.copyFileSync(baseFileName,copyFileName);
-            console.log(cmdColor.green+"# "+cmdColor.cyan+"filecopy "+cmdColor.default+baseFileName+" => "+copyFileName);
-            
+
+            if(!fs.statSync(baseFileName).isDirectory()){
+
+                fs.copyFileSync(baseFileName,copyFileName);
+                console.log(cmdColor.green+"# "+cmdColor.cyan+"filecopy "+cmdColor.default+baseFileName+" => "+copyFileName);        
+            }
         }
+
+        // rd2.jsの変換
+        var coreLibraryPath=coreFileBasePath+"/core";
+        var loadList=fs.readFileSync(coreLibraryPath+"/load.json").toString();
+        loadList=JSON.parse(loadList);
+
+        var coreJsString="var rd2={};\n";
+        for(var n=0;n<loadList.length;n++){
+            var buff=fs.readFileSync(coreLibraryPath+"/"+loadList[n])+"\n";
+            coreJsString+=buff;
+        }
+        fs.writeFileSync(buildDirCore+"/rd2.js",coreJsString);
+        console.log(cmdColor.green+"# "+cmdColor.cyan+"build rd2.js"+cmdColor.default);        
     
         // ページソースからページスクリプト生成
         var pageDir=project+"/pages";

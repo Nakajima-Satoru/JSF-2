@@ -1,0 +1,24 @@
+rd2._data={
+	first:{},
+	nowPage:null,
+	pageCache:{},
+	redirectCache:[],
+	callbacks:{},
+	validates:{},
+	polingThread:{},
+	longPolingThread:{},
+	pageGroup:{},
+	viewCache:{},
+	keepData:{},
+};
+
+rd2._status={
+	zindex:0,
+	animation:false,
+	defaultAnimationName:null,
+	changeAnimationName:null,
+	chattaring:false,
+	backbtn:false,
+	pageExit:false,
+	pageWait:false,
+};

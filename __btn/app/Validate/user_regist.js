@@ -15,8 +15,14 @@ rd2.validate("user_regist").set({
 			message:"ユーザーIDが入力されていません",
 		},
 		{
-			rule:["minLength",8],
-			message:"8文字以上を入力してください",
+			rule:["minLength",6],
+			message:"6文字以上を入力してください",
+		},
+	],
+	nickname:[
+		{
+			rule:"required",
+			message:"ニックネームが入力されていません",
 		},
 	],
 	password_1:[
@@ -25,8 +31,8 @@ rd2.validate("user_regist").set({
 			message:"パスワードが入力されていません",
 		},
 		{
-			rule:["minLength",8],
-			message:"8文字以上を入力してください",
+			rule:["minLength",6],
+			message:"6文字以上を入力してください",
 		},
 		{
 			rule:["value","@password_2"],
@@ -34,5 +40,4 @@ rd2.validate("user_regist").set({
 		}
 	],
 	
-
 });

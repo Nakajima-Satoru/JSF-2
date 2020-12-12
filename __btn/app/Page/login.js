@@ -1,6 +1,5 @@
 rd2.page("login").addGroup(["auth"]).before(function(obj){
 
-
 	rd2.form("login").set({
 		username:{
 			type:"text",
