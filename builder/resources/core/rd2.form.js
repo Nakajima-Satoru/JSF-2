@@ -277,8 +277,6 @@ rd2.form=function(formId){
 
 			var obj=$("form#"+formId);
 
-			console.log(obj.html());
-
 			var colum=Object.keys(data);
 			var length=colum.length;
 			for(var n=0;n<length;n++){
@@ -306,7 +304,6 @@ rd2.form=function(formId){
 	
 				}
 				else{
-					console.log(nameObj);
 					nameObj.val(value);					
 				}
 	

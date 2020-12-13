@@ -1,0 +1,27 @@
+rd2.validate("user_setting").set({
+	email:[
+		{
+			rule:"required",
+			message:"メールアドレスが入力されていません",
+		}
+	],
+	username:[
+		{
+			rule:"required",
+			message:"ユーザーIDが入力されていません",
+		},
+	],
+	nickname:[
+		{
+			rule:"required",
+			message:"ニックネームが入力されていません",
+		},
+	],
+	password_1:[
+		{
+			rule:["value","@password_2"],
+			message:"確認用にも同じパスワードを入力してください",
+		},
+	],
+
+});

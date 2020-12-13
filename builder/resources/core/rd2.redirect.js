@@ -210,7 +210,6 @@ rd2.redirect={
 		}
 
 		if(option.cacheClear){
-			console.log("cache clear...");
 			rd2.redirect.resetRedirectCache();
 		}
 
@@ -390,7 +389,6 @@ rd2.redirect={
 		$("pagelist").addClass(animationName);
 	},
 	revertAnimation:function(){
-		console.log(rd2._status.defaultAnimationName);
 		$("pagelist").removeClass(rd2._status.changeAnimationName);
 		$("pagelist").addClass(rd2._status.defaultAnimationName);
 		rd2._status.changeAnimationName=null;

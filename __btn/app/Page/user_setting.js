@@ -15,11 +15,20 @@ rd2.page("user_setting").addGroup(["auth"]).before(function(obj){
 		password_2:{
 			type:"password",
 		},
+		nickname:{
+			type:"text",
+		},
 		submit:{
 			type:"submit",
 			value:"設定を変更する",
 			class:"btn btn-success",
 		},
+	});
+
+	rd2.form("user_setting").setData({
+		email:"aaaaaaa@email.co.jp",
+		username:"username test",
+		nickname:"テスト太郎",
 	});
 
 });

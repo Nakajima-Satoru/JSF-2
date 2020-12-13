@@ -119,6 +119,10 @@ rd2.window={
 			if(params.callback){
 				params.callback(obj);
 			}
+			else{
+				obj.close();
+			}
+
 		});
 	},
 	confirm:function(params){
@@ -174,6 +178,9 @@ rd2.window={
 					params.callback.ok(obj);
 				}
 			}
+			else{
+				obj.close();
+			}
 
 		});
 		$("._wd ._window ._control #cancel").on("click",function(){
@@ -182,6 +189,12 @@ rd2.window={
 				if(params.callback.cancel){
 					params.callback.cancel(obj);
 				}
+				else{
+					obj.close();
+				}
+			}
+			else{
+				obj.close();
 			}
 
 		});
@@ -231,6 +244,9 @@ rd2.window={
 
 			if(params.callback){
 				params.callback(obj);
+			}
+			else{
+				obj.close();
 			}
 
 		});
@@ -303,6 +319,12 @@ rd2.window={
 				if(params.callback.ok){
 					params.callback.ok(obj);
 				}
+				else{
+					obj.close();
+				}
+			}
+			else{
+				obj.close();
 			}
 
 		});
@@ -314,10 +336,17 @@ rd2.window={
 				if(params.callback.cancel){
 					params.callback.cancel(obj);
 				}
+				else{
+					obj.close();
+				}
 			}
-				
+			else{
+				obj.close();
+			}
+
 		});
 	},
+/*
 	scroll:function(params){
 		rd2._status.backbtn=true;
 
@@ -399,6 +428,7 @@ rd2.window={
 				
 		});
 	},
+*/
 	notification:function(params){
 		rd2._status.backbtn=true;
 
@@ -441,6 +471,9 @@ rd2.window={
 
 			if(params.callback){
 				params.callback(obj);
+			}
+			else{
+				obj.close();
 			}
 
 		});

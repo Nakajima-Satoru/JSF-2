@@ -88,8 +88,6 @@ rd2.validateRule={
 	},
 	value:function(value,arg1){
 
-		console.log("arg1="+arg1);
-
 		if(!value){
 			return true;
 		}
