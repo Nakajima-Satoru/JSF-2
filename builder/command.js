@@ -188,7 +188,7 @@ module.exports={
                 var getContent=fs.readFileSync(pageDir+"/"+pageFileName);
                 var content=Buffer.from(getContent).toString('base64');
                 
-                srcText+="rd2._data.pageCache."+pageName+"='"+content+"';"+"\n";
+                srcText+="rd2._data.pageCache.page_"+pageName+"='"+content+"';"+"\n";
             }
         
             fs.writeFileSync(buildDirCore+"/rd2pagelist.js",srcText);

@@ -17,6 +17,16 @@ rd2.redirect={
 		history.pushState(null,null,null);
 
 		var nowPageData=rd2.dataControl.getNowPage();
+
+		if(nowPageData){
+			nowPageData.html=$('pagelist [data-pid="'+nowPageData.pageId+'"').html();
+			nowPageData.scrollPosition={
+				left:$('pagelist [data-pid="'+nowPageData.pageId+'"').scrollLeft(),
+				top:$('pagelist [data-pid="'+nowPageData.pageId+'"').scrollTop(),
+			};
+
+		}
+
 		var nextPageData=rd2.parse.url(url);
 		rd2._status.zindex++;
 		nextPageData.index=rd2._status.zindex;
@@ -26,8 +36,8 @@ rd2.redirect={
 		}
 
 		var html="";
-		if(rd2._data.pageCache[nextPageData.url]){
-			html=decodeURIComponent(escape(atob(rd2._data.pageCache[nextPageData.url])));
+		if(rd2._data.pageCache["page_"+nextPageData.url]){
+			html=decodeURIComponent(escape(atob(rd2._data.pageCache["page_"+nextPageData.url])));
 		}
 
 		nextPageData.pageId=rd2.text.uniqId();
@@ -146,10 +156,25 @@ rd2.redirect={
 			openPage.addClass("open").removeClass("closed").attr("style","z-index:"+nextPageData.index);
 	
 			if(nowPageData){
+
 				var closePage=$("pagelist page[data-pid="+nowPageData.pageId+"]");
 				closePage.addClass("closed").removeClass("open");
-	
+
+
 				var afterMove=function(){
+
+					// 入力値を保持するためのおまじない
+					var getFormIds=closePage.find("form");
+					if(getFormIds.length>0){
+						for(var c=0;c<getFormIds.length;c++){
+							var getFormId=getFormIds.eq(c).attr("id");
+							var getFormData=rd2.form(getFormId).getSubmitData();
+							if(!rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData){
+								rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData={};
+							}
+							rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData[getFormId]=getFormData;
+						}	
+					}
 
 					/* load callback group after */
 					if(rd2._data.pageGroup[nextPageData.url]){
@@ -171,7 +196,6 @@ rd2.redirect={
 					closePage.removeClass("closed");
 					closePage.remove();			
 					$("pagelist").removeClass("move");
-
 				};
 
 				if(rd2._status.animation){
@@ -185,7 +209,7 @@ rd2.redirect={
 			}
 	
 			nextPageData.html=openPage.html();
-	
+
 			/* chattaring = false; */ 
 			if(rd2._status.animation){
 				setTimeout(function(){
@@ -236,6 +260,19 @@ rd2.redirect={
 
 		$("pagelist").prepend('<page data-pid="'+backPageData.pageId+'">'+backPageData.html+'</page>');
 		var openPage=$("pagelist page[data-pid="+backPageData.pageId+"]");
+
+		if(backPageData.formData){
+			var formDataColum=Object.keys(backPageData.formData);
+			for(var c=0;c<formDataColum.length;c++){
+				var formId=formDataColum[c];
+				var formData=backPageData.formData[formId];
+				rd2.form(formId).setData(formData);
+			}
+		}
+
+		if(backPageData.scrollPosition){
+			openPage.scrollTop(backPageData.scrollPosition.top);
+		}
 
 		/* callback before + leave */ 
 
