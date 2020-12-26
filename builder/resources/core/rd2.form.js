@@ -193,6 +193,18 @@ rd2.form=function(formId){
 
 		this.set=function(option,option2nd){
 
+			if(rd2._data.redirectMode == rd2CallbackConst.redirectMode.back){
+				if(option2nd){
+					if(!option2nd.useBack){
+						console.log("aaaa...");
+						return;
+					}
+				}
+				else{
+					return;
+				}
+			}
+			
 			var oColum=Object.keys(option);
 			var oLength=oColum.length;
 			for(var n=0;n<oLength;n++){
@@ -247,6 +259,7 @@ rd2.form=function(formId){
 			var content=rd2.view(viewName).open();		
 			$("form#"+formId+" [field="+fieldName+"]").append('<div index="'+index+'">'+content+'</div>');
 			this.set(option,{
+				useBack:true,
 				index:index,
 				field:fieldName,
 			});
@@ -276,7 +289,7 @@ rd2.form=function(formId){
 		this.setData=function(data){
 
 			var obj=$("form#"+formId);
-
+			
 			var colum=Object.keys(data);
 			var length=colum.length;
 			for(var n=0;n<length;n++){
@@ -284,7 +297,7 @@ rd2.form=function(formId){
 				var name=colum[n];
 				var value=data[name];
 
-				var nameObj=obj.find("[name="+name+"]");
+				var nameObj=obj.find('[name="'+name+'"]');
 
 				if(nameObj.attr("type")=="radio"){
 					$(nameObj.selector+"[value="+value+"]").prop("checked",true);

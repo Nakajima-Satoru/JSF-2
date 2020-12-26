@@ -1,10 +1,5 @@
 rd2.page("02_validate_form").addGroup("app").before(function(obj){
 
-	console.log(obj.mode);
-	if(obj.mode=="back"){
-		return;
-	}
-
 	rd2.form("vtest").set({
 		required:{
 			type:"text",

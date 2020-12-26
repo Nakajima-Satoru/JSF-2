@@ -2,6 +2,8 @@ rd2.redirect={
 
 	move:function(url,option){
 
+		rd2._data.redirectMode=rd2CallbackConst.redirectMode.move;
+
 		$("pagelist").removeClass("back");
 
 		if(!option){
@@ -240,7 +242,9 @@ rd2.redirect={
 		return this;
 	},
 	back:function(option){
-			
+	
+		rd2._data.redirectMode=rd2CallbackConst.redirectMode.back;
+
 		if(!option){
 			option={};
 		}
@@ -279,6 +283,7 @@ rd2.redirect={
 		/* set call data */ 
 		var callData={
 			mode:"back",
+			pageObj:openPage,
 			back:{
 				url:backPageData.url,
 				request:backPageData.request,
@@ -364,8 +369,6 @@ rd2.redirect={
 			openPage.addClass("open").attr("style","z-index:"+backPageData.index);
 
 			var afterMove=function(){
-
-				callData.pageObj=openPage;
 
 				/* load callback group after */
 				if(rd2._data.pageGroup[backPageData.url]){

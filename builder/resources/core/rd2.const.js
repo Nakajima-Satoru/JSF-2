@@ -1,4 +1,8 @@
 const rd2CallbackConst={
+	redirectMode:{
+		move:"move",
+		back:"back",
+	},
 	base:{
 		loading:"BASE_LOADING_",
 	},

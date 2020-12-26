@@ -13,6 +13,7 @@ rd2._data={
 };
 
 rd2._status={
+	redirectMode:null,
 	zindex:0,
 	animation:false,
 	defaultAnimationName:null,
