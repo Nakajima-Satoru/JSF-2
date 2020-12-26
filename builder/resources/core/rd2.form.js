@@ -361,6 +361,7 @@ rd2.form=function(formId){
 				if(obj.attr("type")=="file"){
 					_loadFiles(name,obj);
 				}
+
 				else if(obj.attr("type")=="radio"){
 					var value=obj.val();
 					var checked=obj.prop("checked");
