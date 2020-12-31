@@ -10,6 +10,22 @@ rd2.validateRule={
 
 		return false;
 	},
+	requiredIf:function(value,arg1,arg2){
+		
+
+	},
+	requiredWith:function(value,arg1,arg2){
+
+
+	},
+	requiredWithOr:function(value,arg1,arg2){
+
+
+	},
+	confirmed:function(value,arg1){
+
+
+	},
 	alphaNumeric:function(value,arg1){
 		
 		if(!value){
