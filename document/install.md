@@ -14,7 +14,7 @@ npm install xxxxx
 次にindex.jsファイルを設置して下記コードを記述します。
 
 ```
-require('xxxxx');
+module.exports=require('xxxxx');
 ```
 
 準備は完了です。
