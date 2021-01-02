@@ -1,1 +1,1 @@
-require("./builder/index.js");
+module.exports=require("./builder/index.js");

@@ -2,6 +2,7 @@ var cmd=process.argv;
 cmd.shift();
 cmd.shift();
 
+const { basename } = require("path");
 const command=require("./command.js");
 
 if(cmd[0]=="project"){
@@ -25,6 +26,10 @@ else if(cmd[0]=="template"){
 	}
 }
 else{
-	console.log("ERROR : Unknown command.");
+	module.exports={
+		build:function(projectPath){
+			var project=basename(projectPath);
+			command.build(projectPath);
+		},
+	};
 }
-
