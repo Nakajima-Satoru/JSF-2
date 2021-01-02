@@ -17,6 +17,10 @@ pagelist page{
 	background:#444;
 	padding:10px;
 }
+pagelist page .pagewk{
+	opacity:1;
+	-webkit-opacity:1;
+}
 
 pagelist.slide-left page{
 	box-shadow:0px 0px 4px 1px #aaa;
@@ -24,6 +28,13 @@ pagelist.slide-left page{
 pagelist.slide-left.move page.open{
 	animation-name:slide-left-open;
 	animation-duration:500ms;
+	animation-timing-function: ease-out;
+	animation-fill-mode:forwards;
+}
+pagelist.slide-left.move page.open .pagewk{
+	animation-name:slide-left-openwk;
+	animation-duration:500ms;
+	animation-timing-function: ease-in;
 	animation-fill-mode:forwards;
 }
 pagelist.slide-left.move page.closed{
@@ -45,8 +56,23 @@ pagelist.slide-left.back page.open{
 	0%{
 		left:100%;
 	}
+	40%{
+		left:0%;
+	}
 	100%{
 		left:0%;
+	}
+}
+@keyframes slide-left-openwk{
+	0%{
+		opacity:0;
+	}
+	70%{
+		opacity:0;
+	}
+	100%{
+		opacity:1;
+		-webkit-opacity:1;
 	}
 }
 @keyframes slide-left-open-onclosed{

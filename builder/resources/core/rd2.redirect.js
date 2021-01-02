@@ -21,10 +21,10 @@ rd2.redirect={
 		var nowPageData=rd2.dataControl.getNowPage();
 
 		if(nowPageData){
-			nowPageData.html=$('pagelist [data-pid="'+nowPageData.pageId+'"').html();
+			nowPageData.html=$('pagelist page[data-pid="'+nowPageData.pageId+'"').html();
 			nowPageData.scrollPosition={
-				left:$('pagelist [data-pid="'+nowPageData.pageId+'"').scrollLeft(),
-				top:$('pagelist [data-pid="'+nowPageData.pageId+'"').scrollTop(),
+				left:$('pagelist page[data-pid="'+nowPageData.pageId+'"').scrollLeft(),
+				top:$('pagelist page[data-pid="'+nowPageData.pageId+'"').scrollTop(),
 			};
 
 		}
@@ -100,7 +100,7 @@ rd2.redirect={
 		}
 
 		if(html){
-			$("pagelist").append('<page data-pid="'+nextPageData.pageId+'" style="display:none">'+html+'</page>');
+			$("pagelist").append('<page data-pid="'+nextPageData.pageId+'" style="display:none"><div class="pagewk">'+html+'</div></page>');
 			var openPage=$("pagelist page[data-pid="+nextPageData.pageId+"]");
 			callData.pageObj=openPage;
 		}
