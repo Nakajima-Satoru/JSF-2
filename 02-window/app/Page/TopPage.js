@@ -97,4 +97,13 @@ rd2.page("top").addGroup(["app"]).before(function(obj){
 
 	});
 
+	obj.pageObj.find("#window").on("click",function(){
+
+		rd2.window.dialog({
+			title:"Window Dialog",
+			dialogView:"dialogWindow",
+		});
+
+	});
+
 });
