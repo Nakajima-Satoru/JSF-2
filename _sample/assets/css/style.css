@@ -71,33 +71,22 @@ textarea{
 	padding:5px;
 }
 form .error{
-	background:#c00;
+	background:#a21;
 	color:#fff;
-	padding:3px 10px;
+	padding:4px 10px;
 	margin-top:5px;
+	font-size:13px;
 }
+form .error:before{
+	content:"ERR:";
+}
+
 dl dt,
 dl dd{
 	margin:5px 0px;
 }
 dl dd{
 	margin-bottom:10px;
-}
-._wd.custom ._window{
-	border:none;
-	width:95%;
-	background:#222;
-	color:#fff;
-	box-shadow: 0px 0px 4px 1px #aaa;
-}
-._wd.notification.success ._window{
-	width:95%;
-	background:#171;
-	border:none;
-	padding:15px;
-}
-._wd.notification.success ._window a{
-	color:#fff;
 }
 
 .loading.open{

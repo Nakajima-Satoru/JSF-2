@@ -7,6 +7,10 @@ rd2.page("form2").addGroup(["app"]).before(function(obj){
         value2:{
             type:"text",
         },
+        value2_0:{
+            type:"text",
+            style:"width:100px",
+        },
         value3:{
             type:"text",
         },

@@ -12,6 +12,7 @@ rd2.validate=function(validateName){
 		this.verify=function(post,noOrrorOutputed){
 
 			this._value=post;
+			rd2.validateRule._value=post;
 
 			var response=null;
 

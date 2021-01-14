@@ -11,19 +11,73 @@ rd2.validateRule={
 		return false;
 	},
 	requiredIf:function(value,arg1,arg2){
-		
+
+		if(this._value[arg1]){
+			if(this._value[arg1]==arg2){
+				if(value){
+					return true;
+				}
+				return false;
+			}
+		}
+
+		return true;
 
 	},
 	requiredWith:function(value,arg1,arg2){
 
+		if(typeof arg1=="string"){
+			arg1=[arg1];
+		}
 
+		for(var n=0;n<arg1.length;n++){
+			var a_=arg1[n];
+			if(!this._value[a_]){
+				return true;
+			}
+		}
+
+		if(value){
+			return true;
+		}
+
+		return false;
 	},
 	requiredWithOr:function(value,arg1,arg2){
 
+		if(typeof arg1=="string"){
+			arg1=[arg1];
+		}
 
+		var juge=false;
+		for(var n=0;n<arg1.length;n++){
+			var a_=arg1[n];
+			if(this._value[a_]){
+				juge=true;
+			}
+		}
+
+		if(!juge){
+			return true;
+		}
+
+		if(value){
+			return true;
+		}
+
+		return false;
 	},
 	confirmed:function(value,arg1){
 
+		if(!value){
+			return true;
+		}
+
+		if(this._value[arg1]==value){
+			return true;
+		}
+
+		return false;
 
 	},
 	alphaNumeric:function(value,arg1){
@@ -108,7 +162,7 @@ rd2.validateRule={
 			return true;
 		}
 
-		if(parseInt(value)==parseInt(arg1)){
+		if(value==arg1){
 			return true;
 		}
 
@@ -121,7 +175,7 @@ rd2.validateRule={
 			return true;
 		}
 
-		if(parseInt(value)>=parseInt(arg1)){
+		if(value>=arg1){
 			return true;
 		}
 
@@ -133,7 +187,7 @@ rd2.validateRule={
 			return true;
 		}
 
-		if(parseInt(value)<=parseInt(arg1)){
+		if(value<=arg1){
 			return true;
 		}
 	
@@ -205,7 +259,7 @@ rd2.validateRule={
 			return true;
 		}
 	
-		if(value.indexOf(arg1)>0){
+		if(value.indexOf(arg1)>-1){
 			return true;
 		}
 
