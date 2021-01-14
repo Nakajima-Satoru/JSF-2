@@ -48,6 +48,11 @@ rd2.page("form1").addGroup(["app"]).before(function(obj){
             value:"Submit",
             style:"background:#29a;",
         },
+        cancel:{
+            type:"reset",
+            value:"Reset",
+            style:"background:#444",
+        }
     });
 
 });
