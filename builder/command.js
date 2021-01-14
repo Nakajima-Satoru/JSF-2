@@ -105,6 +105,7 @@ module.exports={
         scriptAreaText+='<script src="core/rd2viewlist.js"></script>';
         scriptAreaText+='<script src="core/rd2localsc.js"></script>';
         scriptAreaText+='<link rel="stylesheet" href="core/rd2paging.css">';
+        scriptAreaText+='<link rel="stylesheet" href="core/rd2dialog.css">';
         scriptAreaText+='<link rel="stylesheet" href="core/rd2window.css">';
         scriptAreaText+='<script>rd2.load('+manifest+');</script>';
 

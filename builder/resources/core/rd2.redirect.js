@@ -2,6 +2,8 @@ rd2.redirect={
 
 	move:function(url,option){
 
+		rd2.dialogClose();
+
 		rd2._data.redirectMode=rd2CallbackConst.redirectMode.move;
 
 		$("pagelist").removeClass("back");
@@ -258,6 +260,8 @@ rd2.redirect={
 	},
 	back:function(option){
 	
+		rd2.dialogClose();
+		
 		rd2._data.redirectMode=rd2CallbackConst.redirectMode.back;
 
 		rd2._status.pageWait=false;

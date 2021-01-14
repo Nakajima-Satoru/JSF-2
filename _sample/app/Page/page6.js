@@ -11,41 +11,43 @@ rd2.page("page6").addGroup(["app"]).before(function(obj){
 
     });
 
+    // dialog2
     obj.pageObj.find(".dialog2").on("click",function(){
 
-        rd2.dialog("dialog2").open(function(obj){
-
-            obj.dialog.find(".closed").on("click",function(){
-                obj.close();
-            });
-
-        });
+        rd2.dialog("dialog2").open();
 
     });
 
+    // dialog3
     obj.pageObj.find(".dialog3").on("click",function(){
 
+        // dialog3a
         rd2.dialog("dialog3").open(function(obj){
 
             obj.dialog.find(".dialog3a").on("click",function(){
 
-                rd2.dialog("dialog3a").open(function(obj2){
+                rd2.dialog("dialog3a").open();
 
-                    obj2.dialog.find(".closed").on("click",function(){
-                        obj2.close();
-                    });
-
-                });
-
-            });
-
-            obj.dialog.find(".closed").on("click",function(){
-                obj.close();
             });
 
         });
 
     });
 
+    // dialog4
+    obj.pageObj.find(".dialog4").on("click",function(){
 
+        rd2.dialog("dialog4").addClass("large-window").open(function(obj){
+
+            obj.dialog.find(".dialog3a").on("click",function(){
+
+                rd2.dialog("dialog3a").open();
+
+            });
+
+        });
+
+
+    });
+    
 });

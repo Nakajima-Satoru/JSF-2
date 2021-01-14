@@ -1,6 +1,15 @@
+
+rd2.dialogClose=function(){
+    $(".dialogs").removeClass("open");
+    setTimeout(function(){
+        $(".dialogs").remove();
+    },500);
+};
 rd2.dialog=function(dialogName){
 
     var _this=function(dialogName){
+
+        var setClassName="";
 
         this.open=function(callbacks){
 
@@ -11,9 +20,21 @@ rd2.dialog=function(dialogName){
             }
             var content=decodeURIComponent(escape(atob(rd2._data.dialogCache["dialog_"+dialogName])));
             
-            var dialogString='<div class="dialogs" data-dialogid="'+dialogId+'"><div class="bg"></div><div class="window">'+content+'</div></div>';
+            var dialogString='<div class="dialogs '+setClassName+'" data-dialogid="'+dialogId+'"><div class="bg"></div><div class="window">'+content+'</div></div>';
+
+            setClassName=null;
 
             $("html").append(dialogString);
+
+            $(".dialogs[data-dialogid="+dialogId+"]").find(".closed").on("click",function(){
+
+                $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open");
+                setTimeout(function(){
+                    $(".dialogs[data-dialogid="+dialogId+"]").remove();
+                },500);
+    
+
+            });
 
             setTimeout(function(){
 
@@ -36,6 +57,12 @@ rd2.dialog=function(dialogName){
             },50);
 
         };
+
+        this.addClass=function(className){
+            setClassName=className;
+            return this;
+        };
+
 
     };
 

@@ -1,0 +1,50 @@
+.dialogs{
+	position:fixed;
+	left:0;
+	top:0;
+	right:0;
+	z-index:-2;
+}
+.dialogs .bg{
+	background:rgba(0,0,0,0.6);
+	position:fixed;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	opacity:0;
+	-webkit-opacity:0;
+	transition-duration:500ms;
+	-webkit-transition-duration:500ms;
+}
+.dialogs .window{
+	background:#222;
+	color:#fff;
+	position:fixed;
+	padding:20px;
+	left:50%;
+	top:50%;
+	opacity:0;
+	-webkit-opacity:0;
+	transform:translateX(-50%) translateY(-50%);
+	-webkit-transform:translateX(-50%) translateY(-50%);
+	transition-duration:500ms;
+	-webkit-transition-duration:500ms;
+	box-shadow:0px 0px 4px 0px #aaa;
+	font-size:13px;
+}
+.dialogs.open{
+	z-index:1000;
+}
+.dialogs .window p{
+	margin:0px;
+	margin-bottom:20px;
+}
+.dialogs.open .bg{
+	opacity:1;
+	-webkit-opacity:1;
+}
+.dialogs.open .window{
+	opacity:1;
+	-webkit-opacity:1;
+}
