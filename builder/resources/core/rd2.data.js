@@ -2,6 +2,7 @@ rd2._data={
 	first:{},
 	nowPage:null,
 	pageCache:{},
+	dialogCache:{},
 	redirectCache:[],
 	callbacks:{},
 	validates:{},

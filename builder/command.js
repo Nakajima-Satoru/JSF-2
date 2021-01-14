@@ -101,6 +101,7 @@ module.exports={
         var scriptAreaText='<script src="core/jquery.js"></script>';
         scriptAreaText+='<script src="core/rd2.js"></script>';
         scriptAreaText+='<script src="core/rd2pagelist.js"></script>';
+        scriptAreaText+='<script src="core/rd2dialoglist.js"></script>';
         scriptAreaText+='<script src="core/rd2viewlist.js"></script>';
         scriptAreaText+='<script src="core/rd2localsc.js"></script>';
         scriptAreaText+='<link rel="stylesheet" href="core/rd2paging.css">';
@@ -195,6 +196,26 @@ module.exports={
             console.log(cmdColor.green+"# "+cmdColor.cyan+"convert "+cmdColor.default+buildDirCore+"/rd2pagelist.js");    
         }
     
+        // dialogソースからdialogスクリプト生成
+        var dialogDir=project+"/dialog";
+        var dialogFileList=fs.readdirSync(dialogDir);
+        if(dialogFileList){
+            var srcText="";
+            for(var n=0;n<dialogFileList.length;n++){
+                var dialogFileName=dialogFileList[n];
+                var dialogName=dialogFileName.replace(".html","");
+                dialogName = dialogName.charAt(0).toLowerCase() + dialogName.slice(1);
+                var getContent=fs.readFileSync(dialogDir+"/"+dialogFileName);
+                var content=Buffer.from(getContent).toString('base64');
+                
+                srcText+="rd2._data.dialogCache.dialog_"+dialogName+"='"+content+"';"+"\n";
+            }
+        
+            fs.writeFileSync(buildDirCore+"/rd2dialoglist.js",srcText);
+            console.log(cmdColor.green+"# "+cmdColor.cyan+"convert "+cmdColor.default+buildDirCore+"/rd2dialoglist.js");    
+
+        }
+        
         // viewソースからviewスクリプト生成
         var viewDir=project+"/views";
         var viewFileList=fs.readdirSync(viewDir);
