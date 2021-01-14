@@ -11,7 +11,13 @@ rd2.redirect={
 		}
 
 		if(option.animation){
-			rd2.redirect.changeAnimation(option.animation);
+			if(option.animation=="null"){
+				rd2.redirect.stopAnimation();
+			}
+			else{
+				rd2.redirect.startAnimation();
+				rd2.redirect.changeAnimation(option.animation);
+			}
 		}
 			
 		rd2._status.pageWait=false;
@@ -30,6 +36,9 @@ rd2.redirect={
 		}
 
 		var nextPageData=rd2.parse.url(url);
+
+		nextPageData.moveOption=option;
+
 		rd2._status.zindex++;
 		nextPageData.index=rd2._status.zindex;
 
@@ -218,11 +227,17 @@ rd2.redirect={
 					rd2._status.chattaring=false;
 					$("pagelist").removeClass("move");
 					if(option.animation){
+						rd2.redirect.startAnimation();
 						rd2.redirect.revertAnimation();
 					}
 				},500);
 			}
 			else{
+				if(option.animation){
+					if(option.animation=="null"){
+						rd2.redirect.startAnimation();
+					}
+				}
 				rd2._status.chattaring=false;					
 			}
 				
@@ -245,18 +260,28 @@ rd2.redirect={
 	
 		rd2._data.redirectMode=rd2CallbackConst.redirectMode.back;
 
-		if(!option){
-			option={};
-		}
-
-		if(option.animation){
-			rd2.redirect.changeAnimation(option.animation);
-		}
-
 		rd2._status.pageWait=false;
 
 		var nowPageData=rd2.dataControl.getNowPage();
 		var backPageData=rd2._data.redirectCache.pop();
+		
+		if(!option){
+			option={};
+		}
+
+		if(nowPageData.moveOption){
+			option=nowPageData.moveOption;
+		}
+
+		if(option.animation){
+			if(option.animation=="null"){
+				rd2.redirect.stopAnimation();
+			}
+			else{
+				rd2.redirect.startAnimation();
+				rd2.redirect.changeAnimation(option.animation);
+			}
+		}
 
 		if(!backPageData){
 			return;
@@ -400,6 +425,11 @@ rd2.redirect={
 				},400);
 			}
 			else{
+				if(option.animation){
+					if(option.animation=="null"){
+						rd2.redirect.startAnimation();
+					}
+				}
 				afterMove();
 			}
 	

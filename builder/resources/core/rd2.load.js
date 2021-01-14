@@ -32,9 +32,19 @@ rd2.load=function(option){
 
 			if(!rd2._status.chattaring){
 				var url=$(this).attr("url");
-				rd2.redirect.move(url);	
+				var animation=$(this).attr("animation");
+				var option={};
+				if(animation){
+					option.animation=animation;
+				}
+				rd2.redirect.move(url,option);	
 			}
 
+			return false;
+		});
+
+		$("html").on("click","a[backto]",function(){
+			rd2.redirect.back();
 			return false;
 		});
 
