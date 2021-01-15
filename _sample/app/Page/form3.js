@@ -66,6 +66,52 @@ rd2.page("form3").addGroup(["app"]).before(function(obj){
 		value5:{
 			type:"text",
 		},
+		value6:{
+			type:"text",
+		},
+		value7:{
+			type:"text",
+		},
+		value8:{
+			type:"text",
+		},
+		value9:{
+			type:"text",
+		},
+		value10:{
+			type:"text",
+		},
+		value11:{
+			type:"text",
+		},
+		value12:{
+			type:"text",
+		},
+		value13:{
+			type:"text",
+		},
+		value14:{
+			type:"text",
+		},
+		value15:{
+			type:"text",
+		},
+		value16:{
+			type:"text",
+		},
+		value17:{
+			type:"text",
+		},
+		value18:{
+			type:"text",
+		},
+		value19:{
+			type:"text",
+		},
+		value20:{
+			type:"text",
+		},
+
 		submit:{
 			type:"submit",
 			value:"Submit",
