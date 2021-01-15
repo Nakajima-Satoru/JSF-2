@@ -10,7 +10,6 @@
 	"rd2.validateRule.js",
 	"rd2.validate.js",
 	"rd2.request.js",
-	"rd2.window.js",
 	"rd2.dialog.js",
 	"rd2.view.js",
 	"rd2.keep.js"
