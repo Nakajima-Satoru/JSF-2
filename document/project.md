@@ -26,6 +26,7 @@ SampleA
 	L _build
 	L app
 	L assets
+	L dialogL
 	L pages
 	L views
 	L index.html
@@ -62,6 +63,7 @@ SampleA
 		L Submit
 		L Validate
 	L assets
+	L dialogL dialog
 	L pages
 	L views
 	L index.html
@@ -82,6 +84,7 @@ SampleA
 |-  Validate|バリデーションファイル領域|バリデーションを設置するためのスクリプトファイルの格納領域です|
 |assets||画像ファイルや外部css等、リソースファイルを格納するための領域です|
 |pages|ページHTML領域|ページごとのHTMLファイルを格納するための領域です|
+|dialog|ダイアログHTML領域|ダイアログ画面用HTMLファイルを格納するための領域です|
 |views|ビューHTML領域|ビューごとのHTMLファイルを格納するための領域です|
 |index.html|基本HTML|ベースとなるHTMLファイルです|
 |index.js|ビルド用JSファイル|ビルド用のJSファイルです。このファイルにより簡単なコマンドのみでいつでもビルドが可能になります。(削除はしないでください)|
@@ -104,7 +107,14 @@ appディレクトリ内にjsファイルを設置した場合は、
 ページごとのHTMLファイルを格納するための領域です。  
 ページを追加したい場合は必ずこのディレクトリ内に追加ページ分のHTMLファイルを設置してください。
 
-<a id="st_views"></a>
+<a id="st_dialog"></a>
+
+### ## dialogディレクトリ
+
+ダイアログ画面用HTMLファイルを格納するための領域です。  
+ダイアログを追加したい場合は必ずこのディレクトリ内にダイアログ画面で使用するHTMLファイルを設置してください。
+
+<a id="st_view"></a>
 
 ### ## viewsディレクトリ
 
