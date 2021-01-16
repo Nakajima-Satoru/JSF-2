@@ -35,6 +35,10 @@ rd2.validate("test").set({
 
 ## # バリデーションの実行
 
+バリデーションの実行はverifyメソッドを使用して簡単に実行することができます。  
+引数にリクエストデータを渡して、戻り値にバリデーションの結果が返されます。  
+(エラーがない場合はnullを返します。)
+
 ```javascript
 rd2.form("test").callSubmit(function(data){
 
@@ -44,6 +48,22 @@ rd2.form("test").callSubmit(function(data){
 
 });
 ```
+
+エラーメッセージも表示させたい場合はerrorOutputメソッドを使用することで自動的にエラーメッセージが出力されます。  
+
+```javascript
+rd2.form("test").callSubmit(function(data){
+
+	var vres=rd2.validate("test").errorOutput(data);
+
+	console.log(vres);
+
+});
+```
+
+ただし``rd2.form.set``メソッドを使用して書く入力フォームを形成した場合にのみ適用できます。  
+詳しい内容は[こちらを](form.md#set)参照してください。
+
 
 <a id="vrule"></a>
 
