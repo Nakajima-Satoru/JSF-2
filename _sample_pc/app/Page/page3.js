@@ -1,17 +1,17 @@
 rd2.page("page3").addGroup(["app"]).before(function(obj){
 
+	rd2.redirect.disable(true);
+
 	if(obj.mode=="back"){
 		return;
 	}
 
-	rd2.redirect.disable(true);
-	
-	var dialog=rd2.dialog("dialog_loading").addClass("max-width").open();
+	var dialog=rd2.dialog("dialog_loading").addClass("wide-width").open();
 
-	setTimeout(function(){
+	setTimeout(function(){	
 		rd2.redirect.disable(false);
 		dialog.close();
 		obj.move("top");
-	},4000);
+	},3000);
 
 });

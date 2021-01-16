@@ -1,9 +1,8 @@
 
 rd2.dialogClose=function(){
+    console.log("dialog close");
     $(".dialogs").removeClass("open");
-    setTimeout(function(){
-        $(".dialogs").remove();
-    },500);
+    $(".dialogs").remove();
 };
 rd2.dialog=function(dialogName){
 
@@ -27,42 +26,34 @@ rd2.dialog=function(dialogName){
             $("html").append(dialogString);
 
             $(".dialogs[data-dialogid="+dialogId+"]").find(".closed").on("click",function(){
-
-                $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open");
-                setTimeout(function(){
-                    $(".dialogs[data-dialogid="+dialogId+"]").remove();
-                },500);
-    
-
+                $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").remove();    
             });
+
+            var obj={
+                id:dialogId,
+                close:function(){
+                    $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").remove();
+                },
+                dialog:$(".dialogs[data-dialogid="+dialogId+"]"),
+            };
 
             setTimeout(function(){
 
                 $(".dialogs[data-dialogid="+dialogId+"]").addClass("open");
 
                 if(callbacks){
-                    var obj={
-                        id:dialogId,
-                        close:function(){
-                            $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open");
-                            setTimeout(function(){
-                                $(".dialogs[data-dialogid="+dialogId+"]").remove();
-                            },500);
-                        },
-                        dialog:$(".dialogs[data-dialogid="+dialogId+"]"),
-                    };
                     callbacks(obj);    
                 }
                 
             },50);
 
+           return obj;
         };
 
         this.addClass=function(className){
             setClassName=className;
             return this;
         };
-
 
     };
 
