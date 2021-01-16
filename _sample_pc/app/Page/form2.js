@@ -1,4 +1,4 @@
-rd2.page("form2").addGroup(["app"]).before(function(obj){
+rd2.page("form2").addGroup("app").before(function(obj){
     
     rd2.form("form2").set({
         value1:{

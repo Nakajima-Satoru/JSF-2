@@ -18,6 +18,10 @@ rd2.group=function(groupName){
 		};
 		this.addPage=function(pageNames){
 
+			if(typeof pageNames=="string"){
+				pageNames=[pageNames];
+			}
+
 			var pageLength=pageNames.length;
 			for(var n=0;n<pageLength;n++){
 

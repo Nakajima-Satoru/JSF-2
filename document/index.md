@@ -14,7 +14,7 @@
 		- [manifest.jsonファイル](project.md#st_manifest)
 	- [ビルドと実行](project.md#build)
 - [ページについて](pages.md)
-	- [ページの設置](pages.md#set)
+	- [ページの設置](pages.md#setting)
 	- [ページの遷移](pages.md#move)
 	- [コールバックの実装](pages.md#callback)
 		- [beforeコールバック](pages.md#callback_before)

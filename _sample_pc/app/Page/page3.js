@@ -1,4 +1,4 @@
-rd2.page("page3").addGroup(["app"]).before(function(obj){
+rd2.page("page3").addGroup("app").before(function(obj){
 
 	rd2.redirect.disable(true);
 

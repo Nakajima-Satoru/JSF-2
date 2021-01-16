@@ -1,4 +1,4 @@
-rd2.page("page6").addGroup(["app"]).before(function(obj){
+rd2.page("page6").addGroup("app").before(function(obj){
     setTitle("Dialog Sample Top");
 
     obj.pageObj.find(".dialog1").on("click",function(){

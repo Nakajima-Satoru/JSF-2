@@ -1,4 +1,4 @@
-rd2.page("page2").addGroup(["app"]).before(function(obj){
+rd2.page("page2").addGroup("app").before(function(obj){
 
 	setTitle("Page2");
 
