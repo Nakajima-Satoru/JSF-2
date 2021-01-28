@@ -119,7 +119,7 @@ module.exports={
         console.log(cmdColor.green+"# "+cmdColor.cyan+"filecopy+set "+cmdColor.default+htmlFileName);
 
         // assetsの中身を設置
-        var assetsBasePath=project+"/assets";
+        var assetsBasePath=project+"/render/assets";
         var assetsFileList=fsc.search(assetsBasePath);
         var buildDirAssets=buildDir+"/assets";
     
@@ -179,7 +179,7 @@ module.exports={
         console.log(cmdColor.green+"# "+cmdColor.cyan+"build rd2.js"+cmdColor.default);        
     
         // ページソースからページスクリプト生成
-        var pageDir=project+"/pages";
+        var pageDir=project+"/render/pages";
         var pageFileList=fs.readdirSync(pageDir);
         if(pageFileList){
             var srcText="";
@@ -198,7 +198,7 @@ module.exports={
         }
     
         // dialogソースからdialogスクリプト生成
-        var dialogDir=project+"/dialog";
+        var dialogDir=project+"/render/dialog";
         var dialogFileList=fs.readdirSync(dialogDir);
         if(dialogFileList){
             var srcText="";
@@ -218,7 +218,7 @@ module.exports={
         }
         
         // viewソースからviewスクリプト生成
-        var viewDir=project+"/views";
+        var viewDir=project+"/render/views";
         var viewFileList=fs.readdirSync(viewDir);
         if(viewFileList){
             var viewText="";
