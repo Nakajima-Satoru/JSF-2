@@ -2,13 +2,30 @@
 *{
 	box-sizing:border-box;
 }
+pagelist{
+	width:100%;
+	max-width:1000px;
+	left:50%;
+	transform:translateX(-50%);
+	overflow:hidden;
+}
 body{
-	background:#333;
+	background:#444;
 	color:#fff;
-	font-size:13px;
+	font-size:15px;
 }
 a{
 	color:#7ef;
+	cursor:pointer;
+}
+a.btn{
+	border:solid 1px #7ef;
+	padding:10px 20px;
+	display:inline-block;
+	margin:3px;
+}
+a.btn.block{
+	display:block;
 }
 header{
 	background:#179;
