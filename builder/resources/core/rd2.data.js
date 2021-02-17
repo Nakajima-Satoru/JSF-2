@@ -4,6 +4,7 @@ rd2._data={
 	pageCache:{},
 	dialogCache:{},
 	redirectCache:[],
+	requestCache:{},
 	callbacks:{},
 	validates:{},
 	polingThread:{},
