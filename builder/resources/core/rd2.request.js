@@ -1,37 +1,3 @@
-/*
-rd2.request={
-	send:function(params){
-		$.ajax(params);
-	},
-	poling:function(polingName,interval,params){
-		$.ajax(params);
-		rd2._data.polingThread[polingName]=setInterval(function(){
-			$.ajax(params);
-		},interval);
-	},
-	polingExit:function(polingName){
-		if(rd2._data.polingThread[polingName]){
-			clearInterval(rd2._data.polingThread[polingName]);
-		}
-	},
-	longPoling:function(longPolingName,params){
-
-		var baseSuccessCallback=params.success;
-
-		params.success=function(data,textStatus, xhr){
-			baseSuccessCallback(data,textStatus, xhr);
-			rd2._data.longPolingThread[longPolingName]=$.ajax(params);
-		};
-
-		rd2._data.longPolingThread[longPolingName]=$.ajax(params);
-	},
-	longPolingExit:function(longPolingName){
-		if(rd2._data.longPolingThread[longPolingName]){
-			rd2._data.longPolingThread[longPolingName].abort();
-		}
-	},
-};
-*/
 rd2.request=function(requestName){
 
 	var _this=function(requestName){
@@ -44,14 +10,17 @@ rd2.request=function(requestName){
 			data:{},
 			async:false,
 			dataType:"json",
+			callbacks:{
+				before:null,
+				beforeSend:null,
+				done:null,
+				error:null,
+			},			
 		};
 
 		if(requestName){
 			if(!rd2._data[requestName]){
 				rd2._data[requestName]=cond;
-			}
-			else{
-				requestName=null;
 			}
 		}
 
@@ -173,26 +142,94 @@ rd2.request=function(requestName){
 			return true;
 		};
 
+		this.callback={
+			before:function(callbacks){
+
+				if(requestName){
+					rd2._data[requestName].callbacks.before=callbacks;
+				}
+				else{
+					cond.callbacks.before=callbacks;
+				}
+	
+				return this;
+			},
+			beforeSend:function(callbacks){
+
+				if(requestName){
+					rd2._data[requestName].callbacks.beforeSend=callbacks;
+				}
+				else{
+					cond.callbacks.beforeSend=callbacks;
+				}
+
+				return this;
+			},
+		};
+
 		this.send=function(){
 
 			if(requestName){
 				cond=rd2._data[requestName];
 			}
 
+			if(cond.callbacks.before){
+				cond.callbacks.before(cond);
+			}
+
 			var param={
 				url:cond.baseUrl+cond.url,
 				method:cond.method,
 				data:cond.data,
+				dataType:cond.dataType,
 				headers:cond.headers,
+				async:cond.async,
+				beforeSend:function(shr,settings){
+				
+					if(cond.callbacks.beforeSend){
+						cond.callbacks.beforeSend(shr,settings);
+					}
+
+				},
 			};
 
-			console.log(param);
-
 			var obj=$.ajax(param);
+			
+			return obj
 
-			return obj;
+		};
+/*
+		this.poling = function(polingName,interval){
+			this.send();
+			rd2._data.polingThread[polingName]=setInterval(function(){
+				this.send();
+			},interval);
 		};
 
+		this.polingExit:function(polingName){
+			if(rd2._data.polingThread[polingName]){
+				clearInterval(rd2._data.polingThread[polingName]);
+			}
+		};
+
+		this.longPoling=function(longPolingName){
+	
+
+			var baseSuccessCallback=this.success;
+	
+			params.success=function(data,textStatus, xhr){
+				baseSuccessCallback(data,textStatus, xhr);
+				rd2._data.longPolingThread[longPolingName]=$.ajax(params);
+			};
+	
+			rd2._data.longPolingThread[longPolingName]=this.send();
+		},
+		longPolingExit:function(longPolingName){
+			if(rd2._data.longPolingThread[longPolingName]){
+				rd2._data.longPolingThread[longPolingName].abort();
+			}
+		},
+*/
 	};
 	return new _this(requestName);
 
