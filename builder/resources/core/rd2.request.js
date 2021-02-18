@@ -36,35 +36,76 @@ rd2.request=function(requestName){
 
 	var _this=function(requestName){
 
-		if(!rd2._data[requestName]){
-			rd2._data[requestName]={
-				baseUrl:"",
-				url:"",
-				method:"get",
-				headers:{},
-				data:{},
-				async:false,
-				dataType:"json",
-			};
+		var cond={
+			baseUrl:"",
+			url:"",
+			method:"get",
+			headers:{},
+			data:{},
+			async:false,
+			dataType:"json",
+		};
+
+		if(requestName){
+			if(!rd2._data[requestName]){
+				rd2._data[requestName]=cond;
+			}
+			else{
+				requestName=null;
+			}
 		}
 
 		this.set=function(params){
-			rd2._data[requestName]=params;
+			var colum=Object.keys(params);
+			var length=colum.length;
+
+			for(var n=0;n<length;n++){
+				var field=colum[n];
+				var value=params[field];
+
+				if(requestName){
+					rd2._data[requestName][field]=value;
+				}
+				else{
+					cond[field]=value;
+				}
+			}
 			return this;
 		};
 
 		this.baseUrl=function(url){
-			rd2._data[requestName].baseUrl=url;
+
+			if(requestName){
+				rd2._data[requestName].baseUrl=url;
+			}
+			else{
+				cond.baseUrl=url;
+			}
+
 			return this;
 		};
 
 		this.url=function(url){
-			rd2._data[requestName].url=url;
+
+			if(requestName){
+				rd2._data[requestName].url=url;
+			}
+			else{
+				cond.url=url;
+			}
+
 			return this;
 		};
 
 		this.method=function(method){
-			rd2._data[requestName].method=method;
+			
+			if(requestName){
+				rd2._data[requestName].method=method;
+			}
+			else{
+				cond.method=method;
+			}
+
 			return this;
 		};
 
@@ -77,13 +118,18 @@ rd2.request=function(requestName){
 				var field=colum[n];
 				var value=params[field];
 
-				rd2._data[requestName].headers[field]=value;
+				if(requestName){
+					rd2._data[requestName].headers[field]=value;
+				}
+				else{
+					cond.headers[field]=value;
+				}
 			}
 
 			return this;
 		};
 
-		this.setData=function(params){
+		this.data=function(params){
 
 			var colum=Object.keys(params);
 			var length=colum.length;
@@ -92,25 +138,46 @@ rd2.request=function(requestName){
 				var field=colum[n];
 				var value=params[field];
 
-				rd2._data[requestName].data[field]=value;
+				if(requestName){
+					rd2._data[requestName].data[field]=value;
+				}
+				else{
+					cond.data[field]=value;
+				}
 			}
 		
 			return this;
 		};
 
 		this.dataType=function(type){
-			rd2._data[requestName].dataType=type;
+			
+			if(requestName){
+				rd2._data[requestName].dataType=type;
+			}
+			else{
+				cond.dataType=type;
+			}
+
 			return this;
 		};
 
 		this.async=function(async){
-			rd2._data[requestName].async=async;
+
+			if(requestName){
+				rd2._data[requestName].async=async;
+			}
+			else{
+				cond.async=async;
+			}
+
 			return true;
 		};
 
 		this.send=function(){
 
-			var cond=rd2._data[requestName];
+			if(requestName){
+				cond=rd2._data[requestName];
+			}
 
 			var param={
 				url:cond.baseUrl+cond.url,
