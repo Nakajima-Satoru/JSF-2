@@ -1,9 +1,12 @@
 {
 	"name": "jsf2",
-	"version": "1,0,0",
+	"version": "1.0.0",
+	"main":"index.js",
 	"author": {
 		"name": "Nakajima-Satoru",
 		"email": "jsf2@email.jp",
 		"url": "https://www.jsf-2.com/"
+	},
+	"dependencies": {
 	}
 }
