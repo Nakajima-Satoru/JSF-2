@@ -76,6 +76,7 @@ module.exports={
 			console.log("<<Command List On Project>>");
 			console.log("");
 
+			console.log("$ build                             Build the project.");
 			console.log("$ add page [pageName]               Create a page. Create an empty HTML file for the page and a before callback");
 			console.log("$ add dialog [dialogName]           Create a doalog. Create an empty HTML file for the doalog and a before callback");
 			console.log("$ add group [groupName]             Create a group. Create before callback");
