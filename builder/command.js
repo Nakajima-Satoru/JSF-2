@@ -208,8 +208,7 @@ module.exports={
         // dialogソースからdialogスクリプト生成
         try{
             var dialogDir=project+"/render/dialog";
-
-            if(dialogExist){
+            if(dialogDir){
                 var dialogFileList=fs.readdirSync(dialogDir);
             
                 if(dialogFileList){
@@ -232,6 +231,8 @@ module.exports={
             }   
 
         }catch(err){
+            console.log(err);
+            console.log("dialog not found...");
             fs.writeFileSync(buildDirCore+"/rd2dialoglist.js","");  
         }
 
