@@ -12,7 +12,7 @@ module.exports={
 			if(cmd[1]=="add"){
 				var res=command.create(baseDirectory,cmd[2]);
 				if(!res){ return; }
-				command.build(baseDirectory,cmd[2]);
+				command.build(baseDirectory+"/"+cmd[2]);
 			}
 			else if(cmd[1]=="build"){
 				command.build(cmd[2]);
