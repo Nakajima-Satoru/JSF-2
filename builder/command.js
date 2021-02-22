@@ -82,7 +82,7 @@ module.exports={
         console.log(cmdColor.green+"Start build of the specified project."+cmdColor.default);
         console.log("");
     
-        // ビルドディレクトリ生成
+        // Build directory generation
         console.log(cmdColor.green+"# "+cmdColor.cyan+"create build directory"+cmdColor.default);
         var buildDir=project+"/_build";
         try{
@@ -101,7 +101,7 @@ module.exports={
         }
 
 
-        // index.htmlを設置
+        // Generate index.html
         var htmlFileBasePath=project+"/index.html";
         var htmlFileName=buildDir+"/index.html";
     
@@ -126,7 +126,7 @@ module.exports={
         fs.writeFileSync(htmlFileName,htmlContent);
         console.log(cmdColor.green+"# "+cmdColor.cyan+"filecopy+set "+cmdColor.default+htmlFileName);
 
-        // assetsの中身を設置
+        // Set up the contents of assets
         var assetsBasePath=project+"/render/assets";
         var assetsFileList=fsc.search(assetsBasePath);
         var buildDirAssets=buildDir+"/assets";
@@ -151,7 +151,7 @@ module.exports={
             console.log(cmdColor.green+"# "+cmdColor.cyan+"filecopy "+cmdColor.default+fbase+" => "+fname);
         }
     
-        // コアの生成
+        // Core generation
         console.log(cmdColor.green+"# "+cmdColor.cyan+"create core"+cmdColor.default);
         var buildDirCore=buildDir+"/core";
         try{
@@ -173,7 +173,7 @@ module.exports={
             }
         }
 
-        // rd2.jsの変換
+        // rd2.js conversion
         var coreLibraryPath=coreFileBasePath+"/core";
         var loadList=fs.readFileSync(coreLibraryPath+"/load.json").toString();
         loadList=JSON.parse(loadList);
@@ -186,50 +186,64 @@ module.exports={
         fs.writeFileSync(buildDirCore+"/rd2.js",coreJsString);
         console.log(cmdColor.green+"# "+cmdColor.cyan+"build rd2.js"+cmdColor.default);        
     
-        // ページソースからページスクリプト生成
+        // Page script generation from page source
         var pageDir=project+"/render/pages";
-        var pageFileList=fs.readdirSync(pageDir);
-        if(pageFileList){
-            var srcText="";
-            for(var n=0;n<pageFileList.length;n++){
-                var pageFileName=pageFileList[n];
-                var pageName=pageFileName.replace(".html","");
-                pageName = pageName.charAt(0).toLowerCase() + pageName.slice(1);
-                var getContent=fs.readFileSync(pageDir+"/"+pageFileName);
+        var pageFileList=fsc.search(pageDir);
+        if(pageFileList.file){
+
+            var srcText="rd2._data.pageCache = {\n";
+
+            console.log(cmdColor.green+"# "+cmdColor.cyan+"add page start...");
+
+            for(var n=0;n<pageFileList.file.length;n++){
+                var pageFileName=pageFileList.file[n];
+
+                var pageName = pageFileName.replace(pageDir+"/","");
+                pageName = Buffer.from(pageName).toString('base64');
+
+                var getContent=fs.readFileSync(pageFileName);
                 var content=Buffer.from(getContent).toString('base64');
                 
-                srcText+="rd2._data.pageCache.page_"+pageName+"='"+content+"';"+"\n";
+                srcText+="  \""+pageName+"\": \""+content+"\",\n";
+                console.log(cmdColor.green+"# "+cmdColor.cyan+"add page "+cmdColor.default+pageFileName);    
             }
         
+            srcText+="};";
             fs.writeFileSync(buildDirCore+"/rd2pagelist.js",srcText);
-            console.log(cmdColor.green+"# "+cmdColor.cyan+"convert "+cmdColor.default+buildDirCore+"/rd2pagelist.js");    
+            console.log(cmdColor.green+"# "+cmdColor.cyan+"convert page...");    
         }
-    
-        // dialogソースからdialogスクリプト生成
+
+        // Dialog script generation from dialog source
         try{
             var dialogDir=project+"/render/dialog";
-            if(dialogDir){
-                var dialogFileList=fs.readdirSync(dialogDir);
+            var dialogFileList=fsc.search(dialogDir);
             
-                if(dialogFileList){
-                    var srcText="";
-                    for(var n=0;n<dialogFileList.length;n++){
-                        var dialogFileName=dialogFileList[n];
-                        var dialogName=dialogFileName.replace(".html","");
-                        dialogName = dialogName.charAt(0).toLowerCase() + dialogName.slice(1);
-                        var getContent=fs.readFileSync(dialogDir+"/"+dialogFileName);
+            if(dialogFileList.file){
+
+                var srcText="rd2._data.dialogCache = {\n";
+
+                console.log(cmdColor.green+"# "+cmdColor.cyan+"add dialog start...");
+
+                for(var n=0;n<dialogFileList.file.length;n++){
+                        var dialogFileName=dialogFileList.file[n];
+
+                        var dialogName = dialogFileName.replace(dialogDir+"/","");
+                        dialogName = Buffer.from(dialogName).toString('base64');
+
+                        var getContent = fs.readFileSync(dialogFileName);
                         var content=Buffer.from(getContent).toString('base64');
                         
-                        srcText+="rd2._data.dialogCache.dialog_"+dialogName+"='"+content+"';"+"\n";
+                        srcText+="  \""+dialogName+"\": \""+content+"\",\n";
+                        console.log(cmdColor.green+"# "+cmdColor.cyan+"add dialog "+cmdColor.default+dialogFileName);    
                     }
+
+                    srcText+="};";
                 
                     fs.writeFileSync(buildDirCore+"/rd2dialoglist.js",srcText);
-                    console.log(cmdColor.green+"# "+cmdColor.cyan+"convert "+cmdColor.default+buildDirCore+"/rd2dialoglist.js");    
+                    console.log(cmdColor.green+"# "+cmdColor.cyan+"convert dialog ");
         
-                }
-        
-            }   
-
+            }
+    
         }catch(err){
             console.log(err);
             console.log("dialog not found...");
@@ -237,29 +251,40 @@ module.exports={
         }
 
         
-        // viewソースからviewスクリプト生成
+        // View script generation from view source
         try{
             var viewDir=project+"/render/views";
-            var viewFileList=fs.readdirSync(viewDir);
-            if(viewFileList){
-                var viewText="";
-                for(var n=0;n<viewFileList.length;n++){
-                    var viewFileName=viewFileList[n];
-                    var viewName=viewFileName.replace(".html","");
-                    viewName=viewName.charAt(0).toLowerCase() + viewName.slice(1);
-                    var getContent=fs.readFileSync(viewDir+"/"+viewFileName);
+            var viewFileList=fsc.search(viewDir);
+
+            if(viewFileList.file){
+                
+                var viewText="rd2._data.viewCache = {\n";
+
+                console.log(cmdColor.green+"# "+cmdColor.cyan+"add view start...");
+
+                for(var n=0;n<viewFileList.file.length;n++){
+                    var viewFileName=viewFileList.file[n];
+
+                    var viewName = viewFileName.replace(viewDir+"/","");
+                    viewName = Buffer.from(viewName).toString('base64');
+
+                    var getContent=fs.readFileSync(viewFileName);
                     var content=Buffer.from(getContent).toString('base64');
-                    viewText+="rd2._data.viewCache."+viewName+"='"+content+"';"+"\n";
+
+                    viewText+=" \""+viewName+"\": \""+content+"\",\n";
+                    console.log(cmdColor.green+"# "+cmdColor.cyan+"add view "+cmdColor.default+viewFileName);    
                 }
 
+                viewText+="};";
+
                 fs.writeFileSync(buildDirCore+"/rd2viewlist.js",viewText);
-                console.log(cmdColor.green+"# "+cmdColor.cyan+"convert "+cmdColor.default+buildDirCore+"/rd2viewlist.js");
+                console.log(cmdColor.green+"# "+cmdColor.cyan+"convert view ");
             }
         }catch(err){
             fs.writeFileSync(buildDirCore+"/rd2viewlist.js","");
         }
 
-        // スクリプトソースを結合してローカルスクリプト生成
+        // Combine script sources to generate local scripts
         var localSc=project+"/app";
         var localScFileList=fsc.search(localSc);
         var localScText="";
@@ -273,8 +298,7 @@ module.exports={
     
         fs.writeFileSync(buildDirCore+"/rd2localsc.js",localScText);
         console.log(cmdColor.green+"# "+cmdColor.cyan+"convert "+cmdColor.default+buildDirCore+"/rd2localsc.js");
-    
-    
+        
         var finish=function(){
             // 後処理
             console.log("");

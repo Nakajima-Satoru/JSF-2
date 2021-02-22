@@ -184,13 +184,18 @@ rd2.date={
 
 rd2.parse={
 	url:function(url){
-
-		var urls=url.split('/');
+		
 		var getUrlData={};
+		
+		var urls=url.split("?=");
 		getUrlData.url=urls[0];
-		urls.shift();
-		getUrlData.request=urls;
 
+		getUrlData.request=[];
+		if(urls[1]){
+			var request=urls[1].split('/');
+			getUrlData.request=request;
+		}
+		
 		return getUrlData;
 	},
 	urlDiffCheck:function(before,after){

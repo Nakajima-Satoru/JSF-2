@@ -14,10 +14,11 @@ rd2.dialog=function(dialogName){
 
             var dialogId=rd2.text.uniqId();
 
-			if(!rd2._data.dialogCache["dialog_"+dialogName]){
+            dialogNameBase64 = btoa(dialogName+".html");
+			if(!rd2._data.dialogCache[dialogNameBase64]){
                 return;
             }
-            var content=decodeURIComponent(escape(atob(rd2._data.dialogCache["dialog_"+dialogName])));
+            var content=decodeURIComponent(escape(atob(rd2._data.dialogCache[dialogNameBase64])));
             
             var dialogString='<div class="dialogs '+setClassName+'" data-dialogid="'+dialogId+'"><div class="bg"></div><div class="window">'+content+'</div></div>';
 

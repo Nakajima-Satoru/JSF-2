@@ -49,8 +49,9 @@ rd2.redirect={
 		}
 
 		var html="";
-		if(rd2._data.pageCache["page_"+nextPageData.url]){
-			html=decodeURIComponent(escape(atob(rd2._data.pageCache["page_"+nextPageData.url])));
+		var pageUrlBase64 = btoa(nextPageData.url+".html");
+		if(rd2._data.pageCache[pageUrlBase64]){
+			html=decodeURIComponent(escape(atob(rd2._data.pageCache[pageUrlBase64])));
 		}
 
 		nextPageData.pageId=rd2.text.uniqId();
