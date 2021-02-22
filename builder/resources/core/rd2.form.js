@@ -26,10 +26,19 @@ rd2.form=function(formId){
 
 		this.setTag=function(option,option2nd){
 
+			rd2._data.formTagCache[formId]={
+				_option:option,
+				_option2nd:option2nd,
+			};
+
+			return this;
+		};
+
+		this.openTag=function(option,option2nd){
+
 			if(rd2._data.redirectMode == rd2CallbackConst.redirectMode.back){
 				if(option2nd){
 					if(!option2nd.useBack){
-						console.log("aaaa...");
 						return;
 					}
 				}
@@ -38,7 +47,14 @@ rd2.form=function(formId){
 				}
 			}
 
-			var buffer={};
+			if(!option){
+				if(!rd2._data.formTagCache[formId]){
+					return;
+				}
+				var buff=rd2._data.formTagCache[formId];
+				option2nd=buff._option2nd;
+				option=buff._option;
+			}
 
 			var oColum=Object.keys(option);
 			var oLength=oColum.length;
@@ -71,73 +87,43 @@ rd2.form=function(formId){
 					string=rd2.formBuild.tag.input(name2,param);
 				}
 
-				buffer[name]=string;
-/*
 				if(option2nd){
 					$("form#"+formId+" [field="+option2nd.field+"] [index="+option2nd.index+"] [field="+name+"]").html(string);
 				}
 				else{
 					$("form#"+formId+" [field="+name+"]").html(string);
 				}
-*/
 			}
-
-			rd2._data.formTagCache[formId]=buffer;
 
 			return this;
 		};
 
-		this.tagOpen=function(option2nd){
+		this.addTag=function(fieldName,option){
 
-			if(!rd2._data.formTagCache[formId]){
+			rd2._data.formTagCache[formId]._option[fieldName]=option;
+			return this;
+
+		};
+
+		this.editTag=function(fieldName,editOption){
+
+			var buff=rd2._data.formTagCache[formId]._option[fieldName];
+			if(!buff){
 				return;
 			}
 
-			var buffer=rd2._data.formTagCache[formId];
+			var colum=Object.keys(editOption);
+			for(var n=0;n<colum.length;n++){
 
-			var colums=Object.keys(buffer);
-			for(var n=0;n<colums.length;n++){
+				var field=colum[n];
+				var value=editOption[field];
 
-				var name=colums[n];
-				var value=buffer[name];
-
-				if(option2nd){
-					$("form#"+formId+" [field="+option2nd.field+"] [index="+option2nd.index+"] [field="+name+"]").html(value);
-				}
-				else{
-					$("form#"+formId+" [field="+name+"]").html(value);
-				}
-	
+				buff[field]=value;
 			}
 
-			return this;
-		};
+			rd2._data.formTagCache[formId]._option[fieldName]=buff;
 
-		this.addTag=function(fieldName,viewName,option,callbacks){
-
-			var index=parseInt($("form#"+formId+" [field="+fieldName+"] [index]:last-child").attr("index"));
-			if(!index){
-				index=0;
-			}
-			index++;
-
-			var content=rd2.view(viewName).open();		
-			$("form#"+formId+" [field="+fieldName+"]").append('<div index="'+index+'">'+content+'</div>');
-			this.set(option,{
-				useBack:true,
-				index:index,
-				field:fieldName,
-			});
-
-			if(callbacks){
-				var obj={
-					field:fieldName,
-					index:index,
-					fieldObj:$("form#"+formId+" [field="+fieldName+"] [index="+index+"]"),
-				};
-				callbacks(obj);
-			}
-
+			return this;			
 		};
 
 		this.deleteTag=function(fieldName,index){

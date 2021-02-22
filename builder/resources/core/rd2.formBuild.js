@@ -140,6 +140,9 @@ rd2.formBuild={
 
 			}
 
+			option.select = radioSelect;
+			option.value = radioValue;
+
 			return tagStr;
 		},
 		checkbox:function(name,option){
@@ -181,6 +184,9 @@ rd2.formBuild={
 				tagStr+='<label for="'+id+'">'+_value+'</label>'
 				tagStr+="</span>";
 			}
+
+			option.select = checkboxSelect;
+			option.value = checkboxValue;
 
 			return tagStr;
 		},
