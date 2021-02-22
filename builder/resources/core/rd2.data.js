@@ -7,6 +7,7 @@ rd2._data={
 	requestCache:{},
 	callbacks:{},
 	validates:{},
+	formTagCache:{},
 	polingThread:{},
 	longPolingThread:{},
 	pageGroup:{},

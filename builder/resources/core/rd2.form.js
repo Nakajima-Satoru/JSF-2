@@ -2,7 +2,29 @@ rd2.form=function(formId){
 
 	var _this=function(formId){
 
-		this.set=function(option,option2nd){
+		this.set=function(params){
+
+			var colums=Object.keys(params);
+			for(var n=0;n<colums.length;n++){
+
+				var method=colums[n];
+
+				var values=params[method];
+
+				if(method=="setTag"){
+					this.setTag(values);
+				}
+				else if(method=="callSubmit"){
+					this.callSubmit(values);
+				}
+				else if(method=="callReset"){
+					this.callReset(values);
+				}
+				
+			}
+		};
+
+		this.setTag=function(option,option2nd){
 
 			if(rd2._data.redirectMode == rd2CallbackConst.redirectMode.back){
 				if(option2nd){
@@ -15,7 +37,9 @@ rd2.form=function(formId){
 					return;
 				}
 			}
-			
+
+			var buffer={};
+
 			var oColum=Object.keys(option);
 			var oLength=oColum.length;
 			for(var n=0;n<oLength;n++){
@@ -47,19 +71,49 @@ rd2.form=function(formId){
 					string=rd2.formBuild.tag.input(name2,param);
 				}
 
+				buffer[name]=string;
+/*
 				if(option2nd){
 					$("form#"+formId+" [field="+option2nd.field+"] [index="+option2nd.index+"] [field="+name+"]").html(string);
 				}
 				else{
 					$("form#"+formId+" [field="+name+"]").html(string);
 				}
+*/
+			}
 
+			rd2._data.formTagCache[formId]=buffer;
+
+			return this;
+		};
+
+		this.tagOpen=function(option2nd){
+
+			if(!rd2._data.formTagCache[formId]){
+				return;
+			}
+
+			var buffer=rd2._data.formTagCache[formId];
+
+			var colums=Object.keys(buffer);
+			for(var n=0;n<colums.length;n++){
+
+				var name=colums[n];
+				var value=buffer[name];
+
+				if(option2nd){
+					$("form#"+formId+" [field="+option2nd.field+"] [index="+option2nd.index+"] [field="+name+"]").html(value);
+				}
+				else{
+					$("form#"+formId+" [field="+name+"]").html(value);
+				}
+	
 			}
 
 			return this;
 		};
 
-		this.add=function(fieldName,viewName,option,callbacks){
+		this.addTag=function(fieldName,viewName,option,callbacks){
 
 			var index=parseInt($("form#"+formId+" [field="+fieldName+"] [index]:last-child").attr("index"));
 			if(!index){
@@ -86,7 +140,7 @@ rd2.form=function(formId){
 
 		};
 
-		this.delete=function(fieldName,index){
+		this.deleteTag=function(fieldName,index){
 
 			if(index){
 				$("form#"+formId+" [field="+fieldName+"] [index="+index+"]").html("");
