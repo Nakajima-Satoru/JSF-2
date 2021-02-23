@@ -216,6 +216,7 @@ module.exports={
         // Dialog script generation from dialog source
         try{
             var dialogDir=project+"/render/dialog";
+           
             var dialogFileList=fsc.search(dialogDir);
             
             if(dialogFileList.file){
@@ -245,7 +246,6 @@ module.exports={
             }
     
         }catch(err){
-            console.log(err);
             console.log("dialog not found...");
             fs.writeFileSync(buildDirCore+"/rd2dialoglist.js","");  
         }
