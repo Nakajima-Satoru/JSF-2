@@ -183,10 +183,12 @@ rd2.redirect={
 						for(var c=0;c<getFormIds.length;c++){
 							var getFormId=getFormIds.eq(c).attr("id");
 							var getFormData=rd2.form(getFormId).getSubmitData();
-							if(!rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData){
-								rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData={};
+							if(!option.cacheClear){
+								if(!rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData){
+									rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData={};
+								}
+								rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData[getFormId]=getFormData;
 							}
-							rd2._data.redirectCache[rd2._data.redirectCache.length-1].formData[getFormId]=getFormData;
 						}	
 					}
 
