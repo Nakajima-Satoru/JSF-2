@@ -5,6 +5,7 @@ rd2.request=function(requestName){
 		var cond={
 			baseUrl:"",
 			url:"",
+			cache:false,
 			method:"get",
 			headers:{},
 			data:{},
@@ -14,6 +15,8 @@ rd2.request=function(requestName){
 				before:null,
 				beforeSend:null,
 				done:null,
+				success:null,
+				complete:null,
 				error:null,
 			},			
 		};
@@ -65,7 +68,17 @@ rd2.request=function(requestName){
 
 			return this;
 		};
+		this.cache=function(cache){
 
+			if(requestName){
+				rd2._data[requestName].cache=cache;
+			}
+			else{
+				cond.cache=cache;
+			}
+
+			return this;
+		};
 		this.method=function(method){
 			
 			if(requestName){
@@ -189,12 +202,11 @@ rd2.request=function(requestName){
 					if(cond.callbacks.beforeSend){
 						cond.callbacks.beforeSend(shr,settings);
 					}
-
 				},
 			};
 
 			var obj=$.ajax(param);
-			
+
 			return obj
 
 		};
