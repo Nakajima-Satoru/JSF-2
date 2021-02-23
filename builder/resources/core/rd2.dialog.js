@@ -8,9 +8,18 @@ rd2.dialog=function(dialogName){
 
     var _this=function(dialogName){
 
-        var setClassName="";
+        this.open=function(option){
 
-        this.open=function(callbacks){
+            if(!option){
+                option={};
+            }
+
+            if(option.disable){
+                rd2.redirect.disable(true);
+            }
+            if(!option.callback){
+                option.callback={};
+            }
 
             var dialogId=rd2.text.uniqId();
 
@@ -19,41 +28,58 @@ rd2.dialog=function(dialogName){
                 return;
             }
             var content=decodeURIComponent(escape(atob(rd2._data.dialogCache[dialogNameBase64])));
-            
-            var dialogString='<div class="dialogs '+setClassName+'" data-dialogid="'+dialogId+'"><div class="bg"></div><div class="window">'+content+'</div></div>';
 
-            setClassName=null;
+            var setClassName="";
+            if(option.class){
+                setClassName=option.class;
+            }
+
+            var setIdName="";
+            if(option.id){
+                setIdName=option.id;
+            }
+
+            var dialogString='<div class="dialogs '+setClassName+'" id="'+setIdName+'" data-dialogid="'+dialogId+'"><div class="bg"></div><div class="window">'+content+'</div></div>';
 
             $("html").append(dialogString);
-
-            $(".dialogs[data-dialogid="+dialogId+"]").find(".closed").on("click",function(){
-                $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").remove();    
-            });
 
             var obj={
                 id:dialogId,
                 close:function(){
+                    if(option.disable){
+                        rd2.redirect.disable(false);
+                    }
+                    if(option.callback.close){
+                        option.callback.close(obj);
+                    }
                     $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").remove();
                 },
                 dialog:$(".dialogs[data-dialogid="+dialogId+"]"),
             };
 
+
+            $(".dialogs[data-dialogid="+dialogId+"]").find(".closed").on("click",function(){
+                if(option.disable){
+                    rd2.redirect.disable(false);
+                }
+                if(option.callback.close){
+                    option.callback.close(obj);
+                }
+                $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").remove();    
+            });
+
+
             setTimeout(function(){
 
                 $(".dialogs[data-dialogid="+dialogId+"]").addClass("open");
 
-                if(callbacks){
-                    callbacks(obj);    
+                if(option.callback.open){
+                    option.callback.open(obj);    
                 }
                 
             },50);
 
            return obj;
-        };
-
-        this.addClass=function(className){
-            setClassName=className;
-            return this;
         };
 
     };
