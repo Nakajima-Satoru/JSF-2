@@ -2,8 +2,6 @@ rd2.redirect={
 
 	move:function(url,option){
 
-		rd2.dialogClose();
-
 		rd2._data.redirectMode=rd2CallbackConst.redirectMode.move;
 
 		$("pagelist").removeClass("back");
@@ -222,6 +220,7 @@ rd2.redirect={
 				else{
 					afterMove();
 				}
+
 			}
 	
 			nextPageData.html=openPage.html();
@@ -249,6 +248,10 @@ rd2.redirect={
 			rd2.dataControl.redirectPush();
 			rd2.dataControl.setNowPage(nextPageData);
 
+			if(option.cacheClear){
+				console.log("cacheClear");
+				rd2.redirect.resetRedirectCache();
+			}
 		};
 
 		if(!rd2._status.pageWait){
@@ -262,8 +265,6 @@ rd2.redirect={
 		return this;
 	},
 	back:function(option){
-	
-		rd2.dialogClose();
 		
 		rd2._data.redirectMode=rd2CallbackConst.redirectMode.back;
 
