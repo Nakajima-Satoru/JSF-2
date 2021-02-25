@@ -20,6 +20,9 @@ rd2.form=function(formId){
 				else if(method=="callReset"){
 					this.callReset(values);
 				}
+				else if(method=="callOpen"){
+					this.callOpen(values);
+				}
 				
 			}
 		};
@@ -93,6 +96,11 @@ rd2.form=function(formId){
 				else{
 					$("form#"+formId+" [field="+name+"]").html(string);
 				}
+			}
+
+			if(rd2._data.callbacks[rd2CallbackConst.form.open+formId]){
+				var formObj = $("form#"+formId);
+				rd2._data.callbacks[rd2CallbackConst.form.open+formId](formObj);
 			}
 
 			return this;
@@ -199,6 +207,10 @@ rd2.form=function(formId){
 			rd2._data.callbacks[rd2CallbackConst.form.resetAll]=callback;
 			return this;
 		};
+		this.callOpen=function(callback){
+			rd2._data.callbacks[rd2CallbackConst.form.open+formId]=callback;
+			return this;
+		},
 		this.getSubmitData=function(){
 
 			var getSendData={};

@@ -20,6 +20,7 @@ const rd2CallbackConst={
 		leave:"GROUP_LEAVE_",
 	},
 	form:{
+		open:"FORM_OPEN_",
 		submit:"FORM_SUBMIT_",
 		reset:"FORM_RESET_",
 		submitAll:"FORM_SUBMIT_ALL",
