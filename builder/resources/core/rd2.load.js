@@ -23,9 +23,28 @@ rd2.load=function(option){
 				rd2._status.defaultAnimationName=option.animation;
 				rd2._status.animation=true;
 			}
-			if(option.firstUrl){
-				rd2.redirect.move(option.firstUrl);
+			if(option.debug){
+				rd2._status.debug=option.debug;
 			}
+			var url=option.firstUrl;
+			if(option.firstUrl){
+
+				if(option.debug){
+					var hash=location.hash;
+					hash=hash.substring(1);
+
+					if(hash){
+						url=hash;
+					}
+				}
+			}
+
+			var moveOpt={};
+			if(option.firstAnimation){
+				moveOpt.animation=option.firstAnimation;
+			}
+			console.log(moveOpt);
+			rd2.redirect.move(url,moveOpt);
 		});
 
 		$("html").on("click","a[url]",function(){

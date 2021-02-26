@@ -51,7 +51,7 @@ rd2.redirect={
 		if(rd2._data.pageCache[pageUrlBase64]){
 			html=decodeURIComponent(escape(atob(rd2._data.pageCache[pageUrlBase64])));
 		}
-
+		
 		nextPageData.pageId=rd2.text.uniqId();
 
 		/* callback before + leave */ 
@@ -249,7 +249,6 @@ rd2.redirect={
 			rd2.dataControl.setNowPage(nextPageData);
 
 			if(option.cacheClear){
-				console.log("cacheClear");
 				rd2.redirect.resetRedirectCache();
 			}
 		};
