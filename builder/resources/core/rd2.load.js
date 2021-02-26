@@ -43,7 +43,6 @@ rd2.load=function(option){
 			if(option.firstAnimation){
 				moveOpt.animation=option.firstAnimation;
 			}
-			console.log(moveOpt);
 			rd2.redirect.move(url,moveOpt);
 		});
 

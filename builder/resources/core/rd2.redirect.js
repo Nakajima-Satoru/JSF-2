@@ -2,6 +2,8 @@ rd2.redirect={
 
 	move:function(url,option){
 
+		rd2.redirect.revertAnimation();
+		
 		rd2._data.redirectMode=rd2CallbackConst.redirectMode.move;
 
 		$("pagelist").removeClass("back");
