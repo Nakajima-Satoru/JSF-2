@@ -52,7 +52,12 @@ rd2.dialog=function(dialogName){
                     if(option.callback.close){
                         option.callback.close(obj);
                     }
-                    $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").remove();
+                    $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").addClass("closed");
+
+                    setTimeout(function(){
+                        $(".dialogs[data-dialogid="+dialogId+"]").removeClass("closed").remove();
+                    },300);   
+
                 },
                 dialog:$(".dialogs[data-dialogid="+dialogId+"]"),
             };
@@ -65,7 +70,16 @@ rd2.dialog=function(dialogName){
                 if(option.callback.close){
                     option.callback.close(obj);
                 }
-                $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").remove();    
+                $(".dialogs[data-dialogid="+dialogId+"]").removeClass("open").addClass("closed");
+
+                setTimeout(function(){
+                    $(".dialogs[data-dialogid="+dialogId+"]").removeClass("closed").remove();
+                },300);   
+
+                if($(this).attr("url")){
+                    var url=$(this).attr("url");
+                    rd2.redirect.move(url);
+                }
             });
 
 

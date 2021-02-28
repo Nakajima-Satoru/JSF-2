@@ -14,8 +14,6 @@
 	bottom:0;
 	opacity:0;
 	-webkit-opacity:0;
-	transition-duration:500ms;
-	-webkit-transition-duration:500ms;
 }
 .dialogs .window{
 	background:#222;
@@ -28,23 +26,84 @@
 	-webkit-opacity:0;
 	transform:translateX(-50%) translateY(-50%);
 	-webkit-transform:translateX(-50%) translateY(-50%);
-	transition-duration:500ms;
-	-webkit-transition-duration:500ms;
 	box-shadow:0px 0px 4px 0px #aaa;
 	font-size:13px;
-}
-.dialogs.open{
-	z-index:1000;
 }
 .dialogs .window p{
 	margin:0px;
 	margin-bottom:20px;
 }
+.dialogs.open{
+	animation-name:dialog_open_main;
+	animation-duration:300ms;
+	animation-fill-mode: forwards;
+}
+.dialogs.closed{
+	animation-name:dialog_close_main;
+	animation-duration:300ms;
+	animation-fill-mode: forwards;
+}
 .dialogs.open .bg{
-	opacity:1;
-	-webkit-opacity:1;
+	animation-name:dialog_open;
+	animation-duration:300ms;
+	animation-fill-mode: forwards;
+}
+.dialogs.closed .bg{
+	animation-name:dialog_close;
+	animation-duration:300ms;
+	animation-fill-mode: forwards;
 }
 .dialogs.open .window{
-	opacity:1;
-	-webkit-opacity:1;
+	animation-name:dialog_open;
+	animation-duration:300ms;
+	animation-fill-mode: forwards;
+}
+.dialogs.closed .window{
+	animation-name:dialog_close;
+	animation-duration:300ms;
+	animation-fill-mode: forwards;
+}
+
+@keyframes dialog_open_main{
+	0%{
+		z-index:-2;
+	}
+	1%{
+		z-index:1000;
+	}
+	100%{
+		z-index:1000;
+	}
+}
+@keyframes dialog_close_main{
+	0%{
+		z-index:1000;
+	}
+	99%{
+		z-index:-2;
+	}
+	100%{
+		z-index:-2;
+	}
+}
+@keyframes dialog_open{
+	0%{
+		opacity:0;
+		-webkit-opacity:0;
+	}
+	100%{
+		opacity:1;
+		-webkit-opacity:1;
+	}
+}
+
+@keyframes dialog_close{
+	0%{
+		opacity:1;
+		-webkit-opacity:1;
+	}
+	100%{
+		opacity:0;
+		-webkit-opacity:0;
+	}
 }
