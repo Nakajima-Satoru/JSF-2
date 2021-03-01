@@ -78,7 +78,7 @@ rd2.load=function(option){
 		});
 
 		$("html").on("touchstart",function(e){
-			console.log(e.originalEvent.touches[0]);
+			rd2._data.touchPosition=e.originalEvent.touches[0];
 		});
 
 		$("html").on("submit","form",function(e){

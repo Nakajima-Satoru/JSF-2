@@ -39,6 +39,10 @@ rd2.cmenu=function(cMenuName){
 
             var target=$(".contextmenu[data-cmenuid="+cMenuId+"]");
 
+            target.css({
+                left:rd2._data.touchPosition.pageX,
+                top:rd2._data.touchPosition.pageY,
+            });
 
 
 

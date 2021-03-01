@@ -2,3 +2,10 @@
     position:fixed;
 	z-index:-2;
 }
+.contextmenu .window{
+    background:#fff;
+}
+.contextmenu.open{
+    z-index:100;
+}
+
