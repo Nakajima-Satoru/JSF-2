@@ -15,8 +15,6 @@ rd2.cmenu=function(cMenuName){
                 option.callback={};
             }
 
-            var cMenuId=rd2.text.uniqId();
-
             var cMenuNameBase64 = btoa(cMenuName+".html");
 			if(!rd2._data.cmenuCache[cMenuNameBase64]){
                 return;
@@ -33,26 +31,39 @@ rd2.cmenu=function(cMenuName){
                 setIdName=option.id;
             }
 
-            var cMenuString='<div class="contextmenu '+setClassName+'" id="'+setIdName+'" data-cmenuid="'+cMenuId+'"><div class="window">'+content+'</div></div>';
+            $(".contextmenu").remove("");
+
+            var cMenuString='<div class="contextmenu '+setClassName+'" id="'+setIdName+'"><div class="window">'+content+'</div></div>';
 
             $("html").append(cMenuString);
 
-            var target=$(".contextmenu[data-cmenuid="+cMenuId+"]");
+            var target=$(".contextmenu");
 
-            target.css({
-                left:rd2._data.touchPosition.pageX,
-                top:rd2._data.touchPosition.pageY,
-            });
+            var position={};
 
+            if((rd2._data.touchPosition.pageX+target.width()) > $(window).width()){
+                position.left = rd2._data.touchPosition.pageX-target.width();
+            }
+            else{
+                position.left = rd2._data.touchPosition.pageX;
+            }
 
+            if((rd2._data.touchPosition.pageY+target.height()) > $(window).height()){
+                position.top = rd2._data.touchPosition.pageY-target.height()-5;
+            }
+            else{
+                position.top = rd2._data.touchPosition.pageY-5;
+            }
 
+            target.css(position);
 
-
-
+            var obj={
+                cmenu:$(".contextmenu"),
+            };
 
             setTimeout(function(){
 
-                $(".contextmenu[data-cmenuid="+cMenuId+"]").addClass("open");
+                $(".contextmenu").addClass("open");
 
                 if(option.callback.open){
                     option.callback.open(obj);    
@@ -67,3 +78,15 @@ rd2.cmenu=function(cMenuName){
     return new _this(cMenuName);
 
 };
+
+$("html").on("touchend",".contextmenu",function(){
+    return false;
+});
+$("html").on("touchend",".contextmenu a",function(){
+    var url=$(this).attr("url");
+    rd2.redirect.move(url);
+    $(".contextmenu").remove();    
+});
+$("html").on("touchend",function(){
+    $(".contextmenu").remove();
+});

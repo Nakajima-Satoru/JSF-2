@@ -1,11 +1,77 @@
 .contextmenu{
-    position:fixed;
+    position:absolute;
 	z-index:-2;
 }
 .contextmenu .window{
-    background:#fff;
+    opacity:0;
+    -webkit-opacity:0;
+    background:#252525;
+    color:#fff;
+    border:solid 1px #999;
+    padding:20px;
 }
 .contextmenu.open{
     z-index:100;
+    animation-name:contextmenu_main_open;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+.contextmenu.open .window{
+    animation-name:contextmenu_open;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+.contextmenu.close{
+    z-index:100;
+    animation-name:contextmenu_main_close;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+.contextmenu.close .window{
+    animation-name:contextmenu_close;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
 }
 
+@keyframes contextmenu_main_open{
+    0%{
+        z-index:-2;
+    }
+    1%{
+        z-index:1000;
+    }
+    100%{
+        z-index:1000;
+    }
+}
+@keyframes contextmenu_main_close{
+    0%{
+        z-index:1000;
+    }
+    99%{
+        z-index:-2;
+    }
+    100%{
+        z-index:-2;
+    }
+}
+@keyframes contextmenu_open{
+    0%{
+        opacity:0;
+        -webkit-opacity:0;
+    }
+    100%{
+        opacity:1;
+        -webkit-opacity:1;
+    }
+}
+@keyframes contextmenu_close{
+    0%{
+        opacity:1;
+        -webkit-opacity:1;
+    }
+    100%{
+        opacity:0;
+        -webkit-opacity:0;
+    }
+}
