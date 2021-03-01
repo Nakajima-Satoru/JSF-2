@@ -77,6 +77,10 @@ rd2.load=function(option){
 			return;
 		});
 
+		$("html").on("touchstart",function(e){
+			console.log(e.originalEvent.touches[0]);
+		});
+
 		$("html").on("submit","form",function(e){
 
 			var formId=$(this).attr("id");

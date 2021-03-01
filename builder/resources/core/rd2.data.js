@@ -1,8 +1,10 @@
 rd2._data={
+	touchPosition:{},
 	first:{},
 	nowPage:null,
 	pageCache:{},
 	dialogCache:{},
+	cmenuCache:{},
 	redirectCache:[],
 	requestCache:{},
 	callbacks:{},

@@ -111,10 +111,12 @@ module.exports={
         scriptAreaText+='<script src="core/rd2.js"></script>';
         scriptAreaText+='<script src="core/rd2pagelist.js"></script>';
         scriptAreaText+='<script src="core/rd2dialoglist.js"></script>';
-        scriptAreaText+='<script src="core/rd2viewlist.js"></script>';
+        scriptAreaText+='<script src="core/rd2cmenulist.js"></script>';
+        scriptAreaText+='<script src="core/rd2dialoglist.js"></script>';
         scriptAreaText+='<script src="core/rd2localsc.js"></script>';
         scriptAreaText+='<link rel="stylesheet" href="core/rd2paging.css">';
         scriptAreaText+='<link rel="stylesheet" href="core/rd2dialog.css">';
+        scriptAreaText+='<link rel="stylesheet" href="core/rd2cmenu.css">';
         scriptAreaText+='<script>rd2.load('+manifest+');</script>';
 
         htmlContent=htmlContent.replace("{scriptArea}",scriptAreaText);
@@ -249,6 +251,46 @@ module.exports={
             console.log("dialog not found...");
             fs.writeFileSync(buildDirCore+"/rd2dialoglist.js","");  
         }
+
+
+
+        // contextmenu script generation from dialog source
+        try{
+            var cmenuDir=project+"/render/cmenu";
+           
+            var cmenuFileList=fsc.search(cmenuDir);
+            
+            if(cmenuFileList.file){
+
+                var srcText="rd2._data.cmenuCache = {\n";
+
+                console.log(cmdColor.green+"# "+cmdColor.cyan+"add contextmenu start...");
+
+                for(var n=0;n<cmenuFileList.file.length;n++){
+                        var cmenuFileName=cmenuFileList.file[n];
+
+                        var cmenuName = cmenuFileName.replace(cmenuDir+"/","");
+                        cmenuName = Buffer.from(cmenuName).toString('base64');
+
+                        var getContent = fs.readFileSync(cmenuFileName);
+                        var content=Buffer.from(getContent).toString('base64');
+                        
+                        srcText+="  \""+cmenuName+"\": \""+content+"\",\n";
+                        console.log(cmdColor.green+"# "+cmdColor.cyan+"add contextmenu "+cmdColor.default+cmenuFileName);    
+                    }
+
+                    srcText+="};";
+                
+                    fs.writeFileSync(buildDirCore+"/rd2cmenulist.js",srcText);
+                    console.log(cmdColor.green+"# "+cmdColor.cyan+"convert contextmenu ");
+        
+            }
+    
+        }catch(err){
+            console.log("contextmenu not found...");
+            fs.writeFileSync(buildDirCore+"/rd2cmenulist.js","");  
+        }
+
 
         
         // View script generation from view source
