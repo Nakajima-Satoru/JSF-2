@@ -345,6 +345,9 @@ module.exports={
             // 後処理
             console.log("");
             console.log(cmdColor.green+"# "+cmdColor.default+"build complete!");
+            console.log(cmdColor.green+"# "+cmdColor.default+"You can check it by opening the following path with a browser app.");
+            console.log(cmdColor.green+"# "+cmdColor.default+project+"/_build/index.html");
+            
     
         };
     
