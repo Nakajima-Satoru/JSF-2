@@ -50,6 +50,10 @@ rd2.redirect={
 
 		var html="";
 		var pageUrlBase64 = btoa(nextPageData.url+".html");
+		if(rd2._data.changerender[nextPageData.url]){
+			pageUrlBase64 = btoa(rd2._data.changerender[nextPageData.url]+".html");
+			console.log();
+		}
 		if(rd2._data.pageCache[pageUrlBase64]){
 			html=decodeURIComponent(escape(atob(rd2._data.pageCache[pageUrlBase64])));
 		}

@@ -16,6 +16,10 @@ rd2.page=function(pageName){
 			if(param.leave){
 				this.leave(param.leave);
 			}
+			if(param.changeRender){
+				this.changeRender(param.changeRender);
+			}
+			
 		};
 		this.addGroup=function(groupList){
 
@@ -44,6 +48,9 @@ rd2.page=function(pageName){
 		this.leave=function(callback){
 			rd2._data.callbacks[rd2CallbackConst.page.leave+pageName]=callback;
 			return this;
+		};
+		this.changeRender=function(pageUrl){
+			rd2._data.changerender[pageName]=pageUrl;
 		};
 	};
 	return new _this(pageName);

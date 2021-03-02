@@ -15,6 +15,7 @@ rd2._data={
 	pageGroup:{},
 	viewCache:{},
 	keepData:{},
+	changerender:{},
 };
 
 rd2._status={
