@@ -15,9 +15,8 @@ rd2.request=function(requestName){
 				before:null,
 				beforeSend:null,
 				done:null,
-				success:null,
-				complete:null,
-				error:null,
+				fail:null,
+				always:null,
 			},			
 		};
 
@@ -204,10 +203,52 @@ rd2.request=function(requestName){
 					}
 				},
 			};
+try{
 
-			var obj=$.ajax(param);
 
-			return obj
+			var obj=function(req,cond){
+
+				this.done=function(...arg){
+
+					if(cond.callbacks.done){
+						cond.callbacks.done(...arg);
+					}
+
+					req.done(...arg);
+
+					return this;
+				};
+
+				this.fail=function(...arg){
+
+					if(cond.callbacks.done){
+						cond.callbacks.fail(...arg);
+					}
+
+					req.fail(...arg);
+
+					return this;
+				};
+
+				this.always=function(...arg){
+
+					if(cond.callbacks.always){
+						cond.callbacks.always(...arg);
+					}
+
+					req.always(...arg);
+
+					return this;
+				};
+
+			};
+
+			var req=$.ajax(param);
+
+			return new obj(req,cond);
+		}catch(err){
+			console.log(err);
+		}
 
 		};
 /*
