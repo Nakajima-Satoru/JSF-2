@@ -203,52 +203,118 @@ rd2.request=function(requestName){
 					}
 				},
 			};
-try{
 
 
-			var obj=function(req,cond){
+				var obj=function(req,cond){
 
-				this.done=function(...arg){
+					this.done=function(callback){
 
-					if(cond.callbacks.done){
-						cond.callbacks.done(...arg);
-					}
+						req.done(function(arg1,arg2,arg3){
+						
+							if(cond.callbacks.done){
+								cond.callbacks.done(arg1,arg2,arg3);
+							}
+	
+							callback(arg1,arg2,arg3);	
 
-					req.done(...arg);
+						});
 
-					return this;
+						return this;
+					};
+
+					this.fail=function(callback){
+
+						req.fail(function(err){
+
+							if(cond.callbacks.fail){
+								cond.callbacks.fail(err);
+							}
+
+							callback(err);
+
+						});
+
+						return this;
+					};
+
+					this.always=function(callback){
+
+						req.always(function(arg1,arg2,arg3){
+
+							if(cond.callbacks.always){
+								cond.callbacks.always(arg1,arg2,arg3);
+							}
+
+							callback(arg1,arg2,arg3);
+
+						});
+
+						return this;
+					};
+
+					this.success=function(callback){
+
+						req.success(function(arg1,arg2,arg3){
+
+							if(cond.callbacks.success){
+								cond.callbacks.success(arg1,arg2,arg3);
+							}
+
+							callback(arg1,arg2,arg3);
+
+						});
+
+						return this;
+					};
+
+					this.error=function(callback){
+
+						req.error(function(err){
+
+							if(cond.callbacks.error){
+								cond.callbacks.error(err);
+							}
+
+							callback(err);
+
+						});
+
+						return this;
+
+					};
+
+					this.complete=function(callback){
+
+						req.complete(function(arg1,arg2,arg3){
+
+							if(cond.callbacks.complete){
+								cond.callbacks.complete(arg1,arg2,arg3);
+							}
+
+							callback(arg1,arg2,arg3);
+
+						});
+
+						return this;
+
+					};
+
+					this.abort=function(){
+
+						req.abort();
+
+					};
+
+					this.responseJSON = req.responseJSON;
+					this.responseText = req.responseText;
+					this.responseText = req.responseText;
+					this.status = req.status;
+
 				};
 
-				this.fail=function(...arg){
+				var req=$.ajax(param);
 
-					if(cond.callbacks.done){
-						cond.callbacks.fail(...arg);
-					}
-
-					req.fail(...arg);
-
-					return this;
-				};
-
-				this.always=function(...arg){
-
-					if(cond.callbacks.always){
-						cond.callbacks.always(...arg);
-					}
-
-					req.always(...arg);
-
-					return this;
-				};
-
-			};
-
-			var req=$.ajax(param);
-
-			return new obj(req,cond);
-		}catch(err){
-			console.log(err);
-		}
+				return new obj(req,cond);
 
 		};
 /*
