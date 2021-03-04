@@ -186,7 +186,10 @@ rd2.request=function(requestName){
 			}
 
 			if(cond.callbacks.before){
-				cond.callbacks.before(cond);
+				var buff=cond.callbacks.before(cond);
+				if(buff){
+					cond=buff;
+				}
 			}
 
 			var param={
@@ -203,7 +206,6 @@ rd2.request=function(requestName){
 					}
 				},
 			};
-
 
 				var obj=function(req,cond){
 
@@ -313,7 +315,7 @@ rd2.request=function(requestName){
 				};
 
 				var req=$.ajax(param);
-
+				
 				return new obj(req,cond);
 
 		};
