@@ -9,7 +9,7 @@ rd2.request=function(requestName){
 			method:"get",
 			headers:{},
 			data:{},
-			async:false,
+			async:true,
 			dataType:"json",
 			callbacks:{
 				before:null,
@@ -315,6 +315,10 @@ rd2.request=function(requestName){
 				};
 
 				var req=$.ajax(param);
+				
+				cond.url="";
+				cond.data={};
+				cond.headers={};
 				
 				return new obj(req,cond);
 
