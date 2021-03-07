@@ -179,7 +179,7 @@ rd2.request=function(requestName){
 			},
 		};
 
-		this.send=function(){
+		this.send=function(option){
 
 			if(requestName){
 				cond=rd2._data[requestName];
@@ -207,120 +207,139 @@ rd2.request=function(requestName){
 				},
 			};
 
-				var obj=function(req,cond){
+			if(option.url){
+				param.url=cond.baseUrl+option.url;
+			}
+			if(option.method){
+				param.method=option.method;
+			}
+			if(option.data){
+				var colum=Object.keys(option.data);
+				for(var n=0;n<colum.length;n++){
+					var field=colum[n];
+					var value=option.data[field];
+					param.data[field]=value;
+				}
+			}
+			if(option.dataType){
+				param.dataType=option.dataType;
+			}
+			if(option.headers){
+				var colum=Object.keys(option.headers);
+				for(var n=0;n<colum.length;n++){
+					var field=colum[n];
+					var value=option.headers[field];
+					param.headers[field]=value;
+				}
+			}
+			if(option.async){
+				param.async=option.async;
+			}
+			
+			var obj=function(req,cond){
 
-					this.done=function(callback){
-
-						req.done(function(arg1,arg2,arg3){
-						
-							if(cond.callbacks.done){
-								cond.callbacks.done(arg1,arg2,arg3);
-							}
+				this.done=function(callback){
+					req.done(function(arg1,arg2,arg3){
+					
+						if(cond.callbacks.done){
+							cond.callbacks.done(arg1,arg2,arg3);
+						}
 	
-							callback(arg1,arg2,arg3);	
+						callback(arg1,arg2,arg3);	
 
-						});
+					});
 
-						return this;
-					};
-
-					this.fail=function(callback){
-
-						req.fail(function(err){
-
-							if(cond.callbacks.fail){
-								cond.callbacks.fail(err);
-							}
-
-							callback(err);
-
-						});
-
-						return this;
-					};
-
-					this.always=function(callback){
-
-						req.always(function(arg1,arg2,arg3){
-
-							if(cond.callbacks.always){
-								cond.callbacks.always(arg1,arg2,arg3);
-							}
-
-							callback(arg1,arg2,arg3);
-
-						});
-
-						return this;
-					};
-
-					this.success=function(callback){
-
-						req.success(function(arg1,arg2,arg3){
-
-							if(cond.callbacks.success){
-								cond.callbacks.success(arg1,arg2,arg3);
-							}
-
-							callback(arg1,arg2,arg3);
-
-						});
-
-						return this;
-					};
-
-					this.error=function(callback){
-
-						req.error(function(err){
-
-							if(cond.callbacks.error){
-								cond.callbacks.error(err);
-							}
-
-							callback(err);
-
-						});
-
-						return this;
-
-					};
-
-					this.complete=function(callback){
-
-						req.complete(function(arg1,arg2,arg3){
-
-							if(cond.callbacks.complete){
-								cond.callbacks.complete(arg1,arg2,arg3);
-							}
-
-							callback(arg1,arg2,arg3);
-
-						});
-
-						return this;
-
-					};
-
-					this.abort=function(){
-
-						req.abort();
-
-					};
-
-					this.responseJSON = req.responseJSON;
-					this.responseText = req.responseText;
-					this.responseText = req.responseText;
-					this.status = req.status;
-
+					return this;
 				};
 
-				var req=$.ajax(param);
+				this.fail=function(callback){
+
+					req.fail(function(err){
+
+						if(cond.callbacks.fail){
+							cond.callbacks.fail(err);
+						}
+						callback(err);
+
+					});
+
+					return this;
+				};
+
+				this.always=function(callback){
+
+					req.always(function(arg1,arg2,arg3){
+
+						if(cond.callbacks.always){
+							cond.callbacks.always(arg1,arg2,arg3);
+						}
+						callback(arg1,arg2,arg3);
+					});
+
+					return this;
+				};
+
+				this.success=function(callback){
+
+					req.success(function(arg1,arg2,arg3){
+
+						if(cond.callbacks.success){
+							cond.callbacks.success(arg1,arg2,arg3);
+						}
+
+						callback(arg1,arg2,arg3);
+					});
+
+					return this;
+				};
+
+				this.error=function(callback){
+
+					req.error(function(err){
+
+						if(cond.callbacks.error){
+							cond.callbacks.error(err);
+						}
+
+						callback(err);
+
+					});
+
+					return this;
+				};
+
+				this.complete=function(callback){
+
+					req.complete(function(arg1,arg2,arg3){
 				
-				cond.url="";
-				cond.data={};
-				cond.headers={};
+						if(cond.callbacks.complete){
+							cond.callbacks.complete(arg1,arg2,arg3);
+						}
+
+						callback(arg1,arg2,arg3);
+
+					});
+
+					return this;
+				};
+
+				this.abort=function(){
+					req.abort();
+				};
+
+				this.responseJSON = req.responseJSON;
+				this.responseText = req.responseText;
+				this.responseText = req.responseText;
+				this.status = req.status;
+			};
+
+			var req=$.ajax(param);
 				
-				return new obj(req,cond);
+			cond.url="";
+			cond.data={};
+			cond.headers={};
+				
+			return new obj(req,cond);
 
 		};
 /*
