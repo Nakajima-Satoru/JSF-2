@@ -208,6 +208,10 @@ rd2.request=function(requestName){
 				},
 			};
 
+			if(!option){
+				option={};
+			}
+
 			if(option.url){
 				param.url=cond.baseUrl+option.url;
 			}
@@ -236,107 +240,7 @@ rd2.request=function(requestName){
 			if(option.async){
 				param.async=option.async;
 			}
-			
-			var obj=function(req,cond){
-
-				this.done=function(callback){
-					req.done(function(arg1,arg2,arg3){
-					
-						if(cond.callbacks.done){
-							cond.callbacks.done(arg1,arg2,arg3);
-						}
-	
-						callback(arg1,arg2,arg3);	
-
-					});
-
-					return this;
-				};
-
-				this.fail=function(callback){
-
-					req.fail(function(err){
-
-						if(cond.callbacks.fail){
-							cond.callbacks.fail(err);
-						}
-						callback(err);
-
-					});
-
-					return this;
-				};
-
-				this.always=function(callback){
-
-					console.log("always_begin");
-
-					req.always(function(arg1,arg2,arg3){
-						console.log(arg1);
-
-						if(cond.callbacks.always){
-							cond.callbacks.always(arg1,arg2,arg3);
-						}
-						callback(arg1,arg2,arg3);
-					});
-
-					return this;
-				};
-
-				this.success=function(callback){
-
-					req.success(function(arg1,arg2,arg3){
-
-						if(cond.callbacks.success){
-							cond.callbacks.success(arg1,arg2,arg3);
-						}
-
-						callback(arg1,arg2,arg3);
-					});
-
-					return this;
-				};
-
-				this.error=function(callback){
-
-					req.error(function(err){
-
-						if(cond.callbacks.error){
-							cond.callbacks.error(err);
-						}
-
-						callback(err);
-
-					});
-
-					return this;
-				};
-
-				this.complete=function(callback){
-
-					req.complete(function(arg1,arg2,arg3){
-				
-						if(cond.callbacks.complete){
-							cond.callbacks.complete(arg1,arg2,arg3);
-						}
-
-						callback(arg1,arg2,arg3);
-
-					});
-
-					return this;
-				};
-
-				this.abort=function(){
-					req.abort();
-				};
-
-				this.responseJSON = req.responseJSON;
-				this.responseText = req.responseText;
-				this.responseText = req.responseText;
-				this.status = req.status;
-			};
-
+		
 			var req=$.ajax(param);
 
 			if(!option.callbacks){
@@ -408,38 +312,20 @@ rd2.request=function(requestName){
 			return req;
 			
 		};
-/*
-		this.poling = function(polingName,interval){
-			this.send();
+
+		this.poling = function(polingName,interval,option){
+			this.send(option);
 			rd2._data.polingThread[polingName]=setInterval(function(){
-				this.send();
+				this.send(option);
 			},interval);
 		};
 
-		this.polingExit:function(polingName){
+		this.polingExit = function(polingName){
 			if(rd2._data.polingThread[polingName]){
 				clearInterval(rd2._data.polingThread[polingName]);
 			}
 		};
 
-		this.longPoling=function(longPolingName){
-	
-
-			var baseSuccessCallback=this.success;
-	
-			params.success=function(data,textStatus, xhr){
-				baseSuccessCallback(data,textStatus, xhr);
-				rd2._data.longPolingThread[longPolingName]=$.ajax(params);
-			};
-	
-			rd2._data.longPolingThread[longPolingName]=this.send();
-		},
-		longPolingExit:function(longPolingName){
-			if(rd2._data.longPolingThread[longPolingName]){
-				rd2._data.longPolingThread[longPolingName].abort();
-			}
-		},
-*/
 	};
 	return new _this(requestName);
 
