@@ -17,6 +17,7 @@ rd2.request=function(requestName){
 				done:null,
 				fail:null,
 				always:null,
+				success:null,
 			},			
 		};
 
@@ -268,7 +269,10 @@ rd2.request=function(requestName){
 
 				this.always=function(callback){
 
+					console.log("always_begin");
+
 					req.always(function(arg1,arg2,arg3){
+						console.log(arg1);
 
 						if(cond.callbacks.always){
 							cond.callbacks.always(arg1,arg2,arg3);
@@ -334,13 +338,75 @@ rd2.request=function(requestName){
 			};
 
 			var req=$.ajax(param);
-				
-			cond.url="";
-			cond.data={};
-			cond.headers={};
-				
-			return new obj(req,cond);
 
+			if(!option.callbacks){
+				option.callbacks={};
+			}
+
+			var req=req.done(function(arg1,arg2,arg3){
+
+				if(option.callbacks.done){
+					option.callbacks.done(arg1,arg2,arg3);
+				}
+
+				if(cond.callbacks.done){
+					cond.callbacks.done(arg1,arg2,arg3);
+				}
+
+			}).fail(function(err){
+
+				if(option.callbacks.fail){
+					option.callbacks.fail(err);
+				}
+
+				if(cond.callbacks.fail){
+					cond.callbacks.fail(err);
+				}
+
+			}).always(function(arg1,arg2,arg3){
+
+				if(option.callbacks.always){
+					option.callbacks.always(arg1,arg2,arg3);
+				}
+				
+				if(cond.callbacks.always){
+					cond.callbacks.always(arg1,arg2,arg3);
+				}
+
+			}).success(function(arg1,arg2,arg3){
+
+				if(option.callbacks.success){
+					option.callbacks.success(arg1,arg2,arg3);
+				}
+				
+				if(cond.callbacks.success){
+					cond.callbacks.success(arg1,arg2,arg3);
+				}
+
+			}).error(function(err){
+
+				if(option.callbacks.error){
+					option.callbacks.error(err);
+				}
+
+				if(cond.callbacks.error){
+					cond.callbacks.error(err);
+				}
+
+			}).complete(function(arg1,arg2,arg3){
+
+				if(option.callbacks.complete){
+					option.callbacks.complete(arg1,arg2,arg3);
+				}
+
+				if(cond.callbacks.complete){
+					cond.callbacks.complete(arg1,arg2,arg3);
+				}
+
+			})
+				
+			return req;
+			
 		};
 /*
 		this.poling = function(polingName,interval){

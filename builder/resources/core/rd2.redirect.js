@@ -64,6 +64,7 @@ rd2.redirect={
 
 		/* set call data */ 
 		var callData={
+			_exit:false,
 			page:nextPageData.url,
 			mode:"move",
 			next:{
@@ -72,6 +73,7 @@ rd2.redirect={
 				pageId:nextPageData.pageId,	
 			},
 			exit:function(){
+				this._exit=true;
 				rd2._status.pageExit=true;
 				return this;
 			},
@@ -132,13 +134,21 @@ rd2.redirect={
 					if(rd2._data.callbacks[rd2CallbackConst.group.leave+group]){
 						rd2._data.callbacks[rd2CallbackConst.group.leave+group](callData);
 					}
+
+					if(callData._exit){
+						return;
+					}
 				}
 			}
 
 			/* load callback leave */ 
 			if(rd2._data.callbacks[rd2CallbackConst.page.leave+nowPageData.url]){
 				rd2._data.callbacks[rd2CallbackConst.page.leave+nowPageData.url](callData);
-			}	
+			}
+
+			if(callData._exit){
+				return;
+			}
 		}
 
 		/* load callback group before */
@@ -150,12 +160,20 @@ rd2.redirect={
 				if(rd2._data.callbacks[rd2CallbackConst.group.before+group]){
 					rd2._data.callbacks[rd2CallbackConst.group.before+group](callData);
 				}
+
+				if(callData._exit){
+					return;
+				}
 			}
 		}
 
 		/* load callback before */ 
 		if(rd2._data.callbacks[rd2CallbackConst.page.before+nextPageData.url]){
 			rd2._data.callbacks[rd2CallbackConst.page.before+nextPageData.url](callData);
+		}
+		
+		if(callData._exit){
+			return;
 		}
 		
 		if(!html){
