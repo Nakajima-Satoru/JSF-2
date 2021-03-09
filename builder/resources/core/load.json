@@ -13,5 +13,6 @@
 	"rd2.dialog.js",
 	"rd2.cmenu.js",
 	"rd2.view.js",
-	"rd2.keep.js"
+	"rd2.keep.js",
+	"rd2.sync.js"
 ]
