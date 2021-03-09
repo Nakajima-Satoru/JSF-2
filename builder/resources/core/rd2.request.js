@@ -181,6 +181,10 @@ rd2.request=function(requestName){
 
 		this.send=function(option){
 
+			if(!option){
+				option={};
+			}
+			
 			if(requestName){
 				cond=rd2._data[requestName];
 			}
