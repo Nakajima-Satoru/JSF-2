@@ -30,8 +30,6 @@ rd2.formBuild={
 		},
 		textarea:function(name,option){
 
-			delete option.type;
-
 			var textareaValue="";
 			if(option.value){
 				var textareaValue=option.value;
@@ -44,7 +42,9 @@ rd2.formBuild={
 			for(var n2=0;n2<length;n2++){
 				var _name=colum[n2];
 				var _value=option[_name];
-				optionStr+=" "+_name+'="'+_value+'"'
+				if(_name!="type"){
+					optionStr+=" "+_name+'="'+_value+'"';
+				}
 			}
 
 			var tagStr='<textarea name="'+name+'" '+optionStr+'>'+textareaValue+'</textarea>';
@@ -53,8 +53,6 @@ rd2.formBuild={
 
 		},
 		select:function(name,option){
-
-			delete option.type;
 
 			if(option.select){
 				var selects=option.select;
@@ -77,7 +75,9 @@ rd2.formBuild={
 			for(var n2=0;n2<length;n2++){
 				var _name=colum[n2];
 				var _value=option[_name];
-				optionStr+=" "+_name+'="'+_value+'"'
+				if(_name!="type"){
+					optionStr+=" "+_name+'="'+_value+'"'
+				}
 			}
 
 			var tagStr='<select name="'+name+'" '+optionStr+'>';
