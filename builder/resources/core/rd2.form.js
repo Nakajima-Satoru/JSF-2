@@ -106,6 +106,24 @@ rd2.form=function(formId){
 			return this;
 		};
 
+		this.resetTag=function(){
+
+			var buff=rd2._data.formTagCache[formId];
+			option2nd=buff._option2nd;
+			option=buff._option;
+
+			var oColum=Object.keys(option);
+			var oLength=oColum.length;
+			for(var n=0;n<oLength;n++){
+
+				var name=oColum[n];
+
+				$("form#"+formId+"  [field="+name+"]").text("");
+			}
+
+			return this;
+		};
+
 		this.addTag=function(fieldName,option){
 
 			rd2._data.formTagCache[formId]._option[fieldName]=option;
